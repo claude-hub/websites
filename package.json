@@ -1,0 +1,16 @@
+{
+  "name": "games",
+  "private": true,
+  "scripts": {
+    "dev": "lerna run dev --scope @games/download-site",
+    "start": "sh ./scripts/deploy.sh",
+    "build:test": "lerna run build:test",
+    "build": "lerna run build",
+    "lint": "lerna run lint",
+    "reinstall": "npm run clean && pnpm i",
+    "clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
+  },
+  "devDependencies": {
+    "lerna": "^8.1.9"
+  }
+}
