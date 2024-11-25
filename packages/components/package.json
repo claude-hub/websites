@@ -10,11 +10,11 @@
   "dependencies": {},
   "peerDependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@mono/config-ts": "workspace:^",
+    "react-dom": "^18.3.1",
     "@types/react": "^18",
     "@types/react-dom": "^18"
+  },
+  "devDependencies": {
+    "@mono/config-ts": "workspace:^"
   }
 }
