@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "lerna run dev --scope @games/download-site",
+    "dev:p": "lerna run dev --scope @games/puppeteer",
     "start": "sh ./scripts/deploy.sh",
     "build:test": "lerna run build:test",
     "build": "lerna run build",

@@ -1,0 +1,5 @@
+{
+  "extends": "@mono/config-ts",
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
