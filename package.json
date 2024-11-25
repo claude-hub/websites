@@ -6,7 +6,7 @@
     "dev:p": "lerna run dev --scope @games/puppeteer",
     "start": "sh ./scripts/deploy.sh",
     "build:test": "lerna run build:test",
-    "build": "lerna run build",
+    "build": "npx lerna run build",
     "lint": "lerna run lint",
     "reinstall": "npm run clean && pnpm i",
     "clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
