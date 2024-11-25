@@ -4,9 +4,10 @@
   "scripts": {
     "dev": "lerna run dev --scope @games/download-site",
     "dev:p": "lerna run dev --scope @games/puppeteer",
-    "start": "sh ./scripts/deploy.sh",
+    "start": "npm run build && lerna run start --scope @games/download-site",
+    "start:prod": "sh ./scripts/deploy.sh",
     "build:test": "lerna run build:test",
-    "build": "npx lerna run build",
+    "build": "lerna run build",
     "lint": "lerna run lint",
     "reinstall": "npm run clean && pnpm i",
     "clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
