@@ -1,6 +1,12 @@
+import Article from './_article';
+
 export default function Home() {
-  console.log(process.env.NEXT_PUBLIC_GTM_ID)
   return (
-    <div>Hello World!</div>
+    <>
+      <div>Hello World!</div>
+      <button id="click">Click me</button>
+      <a href="https://www.baidu.com" target='_blank'>baidu</a>
+      <Article />
+    </>
   );
 }
