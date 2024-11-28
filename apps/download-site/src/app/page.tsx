@@ -6,7 +6,7 @@ export default function Home() {
       <div>Hello World!</div>
       <button id="click">Click me</button>
       <a href="https://www.baidu.com" target='_blank'>baidu</a>
-      <iframe src="https://www.baidu.com" />
+      {/* <iframe src="https://www.baidu.com" /> */}
       <Article />
     </>
   );
