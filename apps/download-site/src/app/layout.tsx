@@ -18,11 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `console.log('单独的script gtm 加载之前', performance);` }}></script>
-        <Script dangerouslySetInnerHTML={{ __html: `console.log('gtm 加载之前', performance);` }}></Script>
+        <script dangerouslySetInnerHTML={{ __html: `console.log('performance: ', performance)` }}></script>
+        <script dangerouslySetInnerHTML={{ __html: `console.log('单独的script gtm 加载之前', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></script>
+        <Script dangerouslySetInnerHTML={{ __html: `console.log('gtm 加载之前', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></Script>
         <GTM.GTMScript gtmId={gtmId} />
-        <script dangerouslySetInnerHTML={{ __html: `console.log('单独的script gtm 加载之后', performance);` }}></script>
-        <Script dangerouslySetInnerHTML={{ __html: `console.log('gtm 加载之后', performance);` }}></Script>
+        <script dangerouslySetInnerHTML={{ __html: `console.log('单独的script gtm 加载之后', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></script>
+        <Script dangerouslySetInnerHTML={{ __html: `console.log('gtm 加载之后', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></Script>
 
       </head>
 
@@ -30,7 +31,7 @@ export default function RootLayout({
         <GTM.GTMNoscript gtmId={gtmId} />
         {children}
 
-        <Script dangerouslySetInnerHTML={{ __html: `console.log('body 里面的 script', performance);` }}></Script>
+        <Script dangerouslySetInnerHTML={{ __html: `console.log('body 里面的 script', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></Script>
       </body>
     </html>
   );
