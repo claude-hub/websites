@@ -18,6 +18,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
+        <script dangerouslySetInnerHTML={{
+          __html: `
+          console.log('====', window.dataLayer);
+          (window.dataLayer || []).push({
+            event: 'report_test',
+            loading_time: new Date().getTime()
+          })
+          ` }}></script>
+
+
         <script dangerouslySetInnerHTML={{ __html: `console.log('performance: ', performance)` }}></script>
         <script dangerouslySetInnerHTML={{ __html: `console.log('单独的script gtm 加载之前', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></script>
         <Script dangerouslySetInnerHTML={{ __html: `console.log('gtm 加载之前', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></Script>
