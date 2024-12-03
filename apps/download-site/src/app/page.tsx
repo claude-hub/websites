@@ -1,9 +1,12 @@
 import Article from './_article';
 import Demo from '@/components/Demo';
+import TextGA from '@/components/TestGA';
 
 export default function Home() {
   return (
     <>
+
+      <TextGA />
       <div>Hello World!</div>
       <button
         id="click"
