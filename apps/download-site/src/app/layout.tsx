@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { GTM, Track } from "@mono/components";
-import Script from "next/script";
+// import { GTM, Track } from "@mono/components";
+// import Script from "next/script";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { GoogleTagManager } from '@next/third-parties/google'
 
