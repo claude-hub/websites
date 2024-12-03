@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { GTM } from "@mono/components";
+import { GTM, Track } from "@mono/components";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -40,6 +40,7 @@ export default function RootLayout({
 
       <body>
         <GTM.GTMNoscript gtmId={gtmId} />
+        <Track />
         {children}
 
         <Script dangerouslySetInnerHTML={{ __html: `console.log('body 里面的 script', new Date().getTime(), new Date().getTime() - performance.timing.fetchStart);` }}></Script>
