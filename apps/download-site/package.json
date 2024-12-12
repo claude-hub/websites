@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mono/components": "workspace:^"
+    "@mono/components": "workspace:^",
+    "@next/third-parties": "^15.0.3",
+    "next": "^15.0.3"
   },
   "devDependencies": {
+    "@mono/config-ts": "workspace:^",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "@mono/config-ts": "workspace:^"
+    "tailwindcss": "^3.4.1"
   }
 }
