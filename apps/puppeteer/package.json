@@ -1,21 +1,22 @@
 {
-  "name": "@games/puppeteer",
-  "version": "0.1.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts",
-    "start": "npx tsc && node dist/index.js"
-  },
-  "dependencies": {
-    "cheerio": "^1.0.0",
-    "fs-extra": "^11.2.0",
-    "puppeteer": "^23.9.0"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.2",
-    "@mono/config-ts": "workspace:^",
-    "@types/node": "^20",
-    "nodemon": "^3.1.7",
-    "typescript": "^5"
-  }
+	"name": "@games/puppeteer",
+	"version": "0.1.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "ts-node src/index.ts",
+		"dev:nodemon": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts",
+		"start": "npx tsc && node dist/index.js"
+	},
+	"dependencies": {
+		"cheerio": "^1.0.0",
+		"fs-extra": "^11.2.0",
+		"puppeteer": "^23.9.0"
+	},
+	"devDependencies": {
+		"ts-node": "^10.9.2",
+		"@mono/config-ts": "workspace:^",
+		"@types/node": "^20",
+		"nodemon": "^3.1.7",
+		"typescript": "^5"
+	}
 }

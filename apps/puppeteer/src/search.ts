@@ -7,15 +7,17 @@ const cheerio = require('cheerio');
 const original = 'https://poki.com';
 // const googleGames = 'https://play.google.com/store/games';
 const googlePlay = 'https://play.google.com';
-const googleSearchUrl = `${googlePlay}/store/search?q=`;
+const googlePlaySearchUrl = `${googlePlay}/store/search?q=`;
+const googleSearchUrl = 'https://www.google.com/search?q=';
 
 const gamesFileName = 'games.json';
 
 interface Game {
   origin_url: string;
   text: string;
-  detail_url: string;
-  id: string;
+  google_play: string;
+  found: boolean;
+  google_id: string;
 }
 
 type PartialGame = Partial<Game>;
@@ -25,30 +27,39 @@ const getOriginGameList = async (): Promise<PartialGame[]> => {
 
   const gamesFile = fs.readFileSync(gamesFileName, 'utf8');
 
-  let games = [];
-  try {
-    games = JSON.parse(gamesFile);
-  } catch (e) {}
+  const games: PartialGame[] = JSON.parse(gamesFile);
+  let hasChange = false;
 
-  if (games.length === 0) {
-    const res = await fetch(original);
-    const html = await res.text();
-    const $ = cheerio.load(html);
-    const a = $('.vtbwTfQNi80Hes0DzmGs:first a');
-    a.each((i: number, element: Element) => {
+  const res = await fetch(original + '/en');
+  const html = await res.text();
+  const $ = cheerio.load(html);
+  const a = $('.vtbwTfQNi80Hes0DzmGs:first a');
+  a.each((i: number, element: Element) => {
+    const gameName = $(element).text();
+    const gameUrl = original + $(element).attr('href');
+
+    // 如果游戏列表中没有这个游戏，则添加
+    if (games.every(g => g.origin_url !== gameUrl)) {
+      hasChange = true;
       games.push({
-        origin_url: $(element).attr('href'),
-        text: $(element).text()
+        origin_url: gameUrl,
+        text: gameName
       });
-    });
+    }
+  });
+
+  if (hasChange) {
     fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
   }
+
   return games;
 };
 
-const getGameUrl = async (game: PartialGame): Promise<PartialGame> => {
-  if (game.id) game;
-  const searchUrl = googleSearchUrl + game.text;
+const getGooglePlayUrl = async (game: PartialGame): Promise<PartialGame> => {
+  if (game.google_id || game.found === false) return game;
+
+  // &hl=en 为英文
+  const searchUrl = googlePlaySearchUrl + game.text + '&hl=en';
   console.log('search url: ', searchUrl);
 
   const res = await fetch(searchUrl);
@@ -60,7 +71,10 @@ const getGameUrl = async (game: PartialGame): Promise<PartialGame> => {
   if (!urlString) {
     console.error('No search result');
     // exit(0);
-    return game;
+    return {
+      ...game,
+      found: false
+    };
   }
 
   const detailUrl = googlePlay + urlString;
@@ -73,9 +87,25 @@ const getGameUrl = async (game: PartialGame): Promise<PartialGame> => {
   const id = params.get('id') || '';
   return {
     ...game,
-    detail_url: detailUrl,
-    id
+    google_play: detailUrl,
+    google_id: id,
+    found: true
   };
+};
+
+const getAppStoreUrl = async (game: PartialGame): Promise<PartialGame> => {
+  if (game.found) {
+
+    const searchUrl = googleSearchUrl + `${game.text} site:apps.apple.com`;
+    console.log('google search url: ', searchUrl);
+
+    const res = await fetch(searchUrl);
+    const html = await res.text();
+    const $ = cheerio.load(html);
+
+  }
+
+  return game;
 };
 
 const searchGames = async () => {
@@ -93,12 +123,12 @@ const searchGames = async () => {
 
   for (let i = 0; i < games.length; i++) {
     const game = games[i];
-    const res = await getGameUrl(game);
-    // 如果有变更，则写入文件
-    if (!game.id && res.id) {
-      games[i] = res;
-      fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
-    }
+    const res = await getGooglePlayUrl(game);
+
+    // await getAppStoreUrl(res);
+
+    games[i] = res;
+    fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
   }
 };
 
