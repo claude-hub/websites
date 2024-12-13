@@ -500,11 +500,9 @@ const html = `
 <p>以上就是本文的全部内容，如果本文对你有帮助，欢迎转发给你的朋友。</p>
 <p><img src="https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/bebc7c93e0214e2e8f5a8beafd6bfe49~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5b636IKy5aSE5Li75Lu7:q75.awebp?rk3s=f64ab15b&amp;x-expires=1733119436&amp;x-signature=eKPkwvoE%2Bb7T3Pw7HdbW2VBVcac%3D" alt="IMG_4387 2.GIF" loading="lazy" class="medium-zoom-image"></p>
 <p><strong>点赞 + 关注 + 收藏 = 学会了</strong></p></div></div></article>
-`
+`;
 const Article = () => {
-  return (
-    <div dangerouslySetInnerHTML={{ __html: html }} />
-  )
-}
+	return <div dangerouslySetInnerHTML={{ __html: html }} />;
+};
 
 export default Article;

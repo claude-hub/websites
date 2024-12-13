@@ -1,27 +1,29 @@
 {
-  "name": "games",
-  "private": true,
-  "scripts": {
-    "dev": "lerna run dev --scope @games/download-site",
-    "dev:p": "lerna run dev --scope @games/puppeteer",
-    "start": "npm run build && lerna run start --scope @games/download-site",
-    "start:prod": "sh ./scripts/deploy.sh",
-    "build:test": "lerna run build:test",
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "reinstall": "npm run clean && pnpm i",
-    "clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "next": "^15.0.3"
-  },
-  "devDependencies": {
-    "lerna": "^8.1.9",
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18"
-  }
+	"name": "games",
+	"private": true,
+	"scripts": {
+		"dev": "lerna run dev --scope @games/download-site",
+		"dev:p": "lerna run dev --scope @games/puppeteer",
+		"start": "npm run build && lerna run start --scope @games/download-site",
+		"start:prod": "sh ./scripts/deploy.sh",
+		"build:test": "lerna run build:test",
+		"build": "lerna run build",
+		"lint": "lerna run lint",
+		"format": "prettier --write .",
+		"reinstall": "npm run clean && pnpm i",
+		"clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
+	},
+	"dependencies": {
+		"next": "^15.0.3",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
+	},
+	"devDependencies": {
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"lerna": "^8.1.9",
+		"prettier": "^3.4.2",
+		"typescript": "^5"
+	}
 }
