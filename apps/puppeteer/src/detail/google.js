@@ -1,6 +1,37 @@
 const cheerio = require('cheerio');
 const { get } = require('lodash');
 
+const googlePlay = 'https://play.google.com';
+const googlePlaySearchUrl = `${googlePlay}/store/search?q=`;
+
+const searchGoogleGame = async (game) => {
+	const { name, developer } = game;
+	// &hl=en 为英文
+	const searchUrl = googlePlaySearchUrl + name + '&hl=en';
+	console.log('===google search url===', searchUrl);
+
+	const res = await fetch(searchUrl);
+	const html = await res.text();
+	const $ = cheerio.load(html);
+	const a = $('.XUIuZ a');
+	const urlString = $(a).attr('href');
+
+	// 如果没有搜索结果，则终止程序
+	if (!urlString) {
+		console.error('No search result');
+		return '';
+	}
+
+	const currentName = $('.vWM94c').text();
+	const currentDeveloper = $('.LbQbAe').text();
+	if (name === currentName && developer === currentDeveloper) {
+		return googlePlay + urlString;
+	}
+
+	console.error('Search result not match');
+	return '';
+};
+
 const parserGameInfoFromScript = (params) => {
 	const name = get(params, 'data[1][2][0]', []);
 	const pb_time = get(params, 'data[1][2][10]', []);
@@ -84,7 +115,9 @@ const parserGameInfoFromScript = (params) => {
 	};
 };
 
-const getGoogleDetail = async (url) => {
+const googleDetail = async (url) => {
+	if (!url) return {};
+
 	const res = await fetch(url + '&hl=en');
 	const html = await res.text();
 	// fs.writeFileSync('test.html', html);
@@ -94,15 +127,25 @@ const getGoogleDetail = async (url) => {
 	const _script = $('script[class="ds:5"]').text();
 	const reviews = $('.w7Iutd .wVqUob:first .g1rdde').text();
 	const score = $('.jILTFe').text();
+	const video = $('video source').attr('src') || '';
 
 	let game_detail;
+
+	// 创建一个 URL 对象
+	const parsedUrl = new URL(url);
+	// 获取查询参数
+	const params = new URLSearchParams(parsedUrl.search);
+	const id = params.get('id') || '';
 
 	// 解析 js 里面的游戏信息
 	const AF_initDataCallback = function (params) {
 		const info = parserGameInfoFromScript(params);
 		game_detail = {
+			google_url: url,
+			id,
 			reviews: $('.w7Iutd .wVqUob').length === 3 ? reviews : '',
 			score,
+			video,
 			...info
 		};
 	};
@@ -111,6 +154,11 @@ const getGoogleDetail = async (url) => {
 	eval(_script);
 
 	return game_detail;
+};
+
+const getGoogleDetail = async (game) => {
+	const url = game.google_detail_url || (await searchGoogleGame(game));
+	return await googleDetail(url);
 };
 
 module.exports = {

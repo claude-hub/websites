@@ -1,16 +1,43 @@
-const { getGoogleDetail } = require('./detail/google');
-
 const fs = require('fs');
-const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+const { getGoogleDetail } = require('./detail/google');
+const { getAppleDetail } = require('./detail/apple');
+const { isEmpty } = require('lodash');
 
 const original = 'https://poki.com';
-// const googleGames = 'https://play.google.com/store/games';
-const googlePlay = 'https://play.google.com';
-const googlePlaySearchUrl = `${googlePlay}/store/search?q=`;
-const googleSearchUrl = 'https://www.google.com/search?q=';
 
 const gamesFileName = 'games.json';
+
+const getPoKiDeveloper = async (url) => {
+	const res = await fetch(url);
+	const html = await res.text();
+	const $ = cheerio.load(html);
+	const name = $('.pyOBngxafEnwWKrr93IQ').text().trim();
+	console.log(name.replace('by ', ''));
+	return name.replace('by ', '');
+};
+
+// const updateFileData = async () => {
+// 	const gamesFile = fs.readFileSync(gamesFileName, 'utf8');
+// 	const games = JSON.parse(gamesFile);
+
+// 	for (let i = 0; i < games.length; i++) {
+// 		const game = games[i];
+// 		if (!game.developer) {
+// 			game.developer = await getPoKiDeveloper(game.url);
+// 		}
+// 	}
+// 	console.log('====');
+// 	// const newGames = games.map((item) => {
+// 	// 	return {
+// 	// 		url: item.origin_url,
+// 	// 		name: item.text,
+// 	// 		developer: item.developer
+// 	// 	};
+// 	// });
+// 	fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
+// };
+
 const getOriginGameList = async () => {
 	fs.existsSync(gamesFileName) || fs.writeFileSync(gamesFileName, '[]');
 
@@ -23,108 +50,51 @@ const getOriginGameList = async () => {
 	const html = await res.text();
 	const $ = cheerio.load(html);
 	const a = $('.vtbwTfQNi80Hes0DzmGs:first a');
-	a.each((i, element) => {
-		const gameName = $(element).text();
+	for (let i = 0; i < a.length; i++) {
+		const element = a[i];
+		const gameName = $(element).text().trim();
 		const gameUrl = original + $(element).attr('href');
 
 		// 如果游戏列表中没有这个游戏，则添加
-		if (games.every((g) => g.origin_url !== gameUrl)) {
+		if (games.every((g) => g.url !== gameUrl)) {
 			hasChange = true;
-			games.push({
-				origin_url: gameUrl,
-				text: gameName
+			const developer = await getPoKiDeveloper(gameUrl);
+			games.unshift({
+				url: gameUrl,
+				name: gameName,
+				developer
 			});
 		}
-	});
+	}
 
 	if (hasChange) {
+		console.log('==游戏有更新==');
 		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
 	}
 
 	return games;
 };
 
-const getGooglePlayUrl = async (game) => {
-	if (game.google_id || game.found === false) return game;
-
-	// &hl=en 为英文
-	const searchUrl = googlePlaySearchUrl + game.text + '&hl=en';
-	console.log('search url: ', searchUrl);
-
-	const res = await fetch(searchUrl);
-	const html = await res.text();
-	const $ = cheerio.load(html);
-	const a = $('.XUIuZ a');
-	const urlString = $(a).attr('href');
-	// 如果没有搜索结果，则终止程序
-	if (!urlString) {
-		console.error('No search result');
-		// exit(0);
-		return {
-			...game,
-			found: false
-		};
-	}
-
-	const detailUrl = googlePlay + urlString;
-	// 创建一个 URL 对象
-	const parsedUrl = new URL(detailUrl);
-	console.log('result url: ', detailUrl);
-
-	// 获取查询参数
-	const params = new URLSearchParams(parsedUrl.search);
-	const id = params.get('id') || '';
-	return {
-		...game,
-		google_play: detailUrl,
-		google_id: id,
-		found: true
-	};
-};
-
-const getAppStoreUrl = async (game) => {
-	if (game.found) {
-		const searchUrl = googleSearchUrl + `${game.text} site:apps.apple.com`;
-		console.log('google search url: ', searchUrl);
-
-		const res = await fetch(searchUrl);
-		const html = await res.text();
-		const $ = cheerio.load(html);
-	}
-
-	return game;
-};
-
 const searchGames = async () => {
 	const games = await getOriginGameList();
-	// const browser = await puppeteer.launch({
-	//   headless: false,
-	//   args: ['--lang=en-US']
-	// });
-	// const page = await browser.newPage();
-	// await page.setViewport({ width: 1360, height: 780 });
-
-	// await page.goto(googleGames + games[0].text);
-
-	// const loginBtn = await page.$('.loginBtn .log')
 
 	for (let i = 0; i < games.length; i++) {
-		const game = games[i];
-		const res = await getGooglePlayUrl(game);
+		let game = games[i];
 
-		let googleDetail;
-		if (res.google_play) {
-			console.log(res.google_play);
-			// if (res.google_play && !res.detail) {
-			googleDetail = await getGoogleDetail(res.google_play);
+		if (isEmpty(game.google_detail)) {
+			const google_search_url = `https://play.google.com/store/search?q=` + game.name + '&hl=en';
+			game.google_search_url = google_search_url;
+			game.google_detail = await getGoogleDetail(game);
 		}
 
-		// await getAppStoreUrl(res);
+		if (isEmpty(game.app_detail)) {
+			const apple_search_url = `https://www.apple.com/us/search/${game.name}?src=serp`;
+			game.apple_search_url = apple_search_url;
+			game.app_detail = await getAppleDetail(game);
+		}
 
-		games[i] = {
-			...res,
-			...(googleDetail ? { detail: googleDetail } : undefined)
-		};
+		games[i] = game;
+
 		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
 	}
 };
