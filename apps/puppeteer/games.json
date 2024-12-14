@@ -1,5 +1,158 @@
 [
   {
+    "url": "https://poki.com/en/g/subway-surfers",
+    "name": "Subway Surfers",
+    "developer": "SYBO",
+    "google_detail": {},
+    "apple_detail_url": "https://apps.apple.com/us/app/subway-surfers/id512939461",
+    "google_search_url": "https://play.google.com/store/search?q=Subway Surfers&hl=en",
+    "apple_search_url": "https://www.apple.com/us/search/Subway Surfers?src=serp",
+    "app_detail": {
+      "apple_url": "https://apps.apple.com/us/app/subway-surfers/id512939461",
+      "size": "294.9 MB",
+      "price": "Free",
+      "in_app_purchase": "$0.99",
+      "developer": {
+        "name": "Sybo Games ApS",
+        "url": "https://apps.apple.com/us/developer/sybo-games-aps/id471259040"
+      }
+    }
+  },
+  {
+    "url": "https://poki.com/en/g/spades",
+    "name": "Spades",
+    "developer": "MarketJS",
+    "google_search_url": "https://play.google.com/store/search?q=Spades&hl=en",
+    "google_detail": {},
+    "apple_search_url": "https://www.apple.com/us/search/Spades?src=serp",
+    "app_detail": {}
+  },
+  {
+    "url": "https://poki.com/en/g/stickman-parkour-3",
+    "name": "Stickman Parkour 3",
+    "developer": "Art Industries"
+  },
+  {
+    "url": "https://poki.com/en/g/g-switch-4",
+    "name": "G-Switch 4",
+    "developer": "Serius Games"
+  },
+  {
+    "url": "https://poki.com/en/g/emoji-coloring",
+    "name": "Emoji Coloring",
+    "developer": "illusivegames"
+  },
+  {
+    "url": "https://poki.com/en/g/trivia-crack",
+    "name": "Trivia Crack",
+    "developer": "play.works"
+  },
+  {
+    "url": "https://poki.com/en/g/horse-simulator-3d",
+    "name": "Horse Simulator 3D",
+    "developer": "CyberGoldFinch"
+  },
+  {
+    "url": "https://poki.com/en/g/yummy-cupcake",
+    "name": "Yummy Cupcake",
+    "developer": "Go Panda Games Studio"
+  },
+  {
+    "url": "https://poki.com/en/g/tiny-fishing",
+    "name": "Tiny Fishing",
+    "developer": "BuyHTML5"
+  },
+  {
+    "url": "https://poki.com/en/g/master-checkers",
+    "name": "Master Checkers",
+    "developer": "Codethislab"
+  },
+  {
+    "url": "https://poki.com/en/g/friday-night-funkin",
+    "name": "Friday Night Funkin'",
+    "developer": "ninjamuffin99"
+  },
+  {
+    "url": "https://poki.com/en/g/two-button-bounce",
+    "name": "Two Button Bounce",
+    "developer": "Robert Alvarez"
+  },
+  {
+    "url": "https://poki.com/en/g/backgammon-html5",
+    "name": "Backgammon Online",
+    "developer": "Codethislab"
+  },
+  {
+    "url": "https://poki.com/en/g/classic-mahjong",
+    "name": "Classic Mahjong",
+    "developer": "Coolgames B.V."
+  },
+  {
+    "url": "https://poki.com/en/g/papas-scooperia",
+    "name": "Papa's Scooperia",
+    "developer": "Flipline Studios"
+  },
+  {
+    "url": "https://poki.com/en/g/mechabots",
+    "name": "Mechabots",
+    "developer": "Terminarch Games"
+  },
+  {
+    "url": "https://poki.com/en/g/noob-archer",
+    "name": "Noob Archer",
+    "developer": "Vanorium"
+  },
+  {
+    "url": "https://poki.com/en/g/horse-shoeing",
+    "name": "Horse Shoeing",
+    "developer": "NoPowerup"
+  },
+  {
+    "url": "https://poki.com/en/g/traveling-guide-curly",
+    "name": "Traveling Guide Curly",
+    "developer": "Idea Studios"
+  },
+  {
+    "url": "https://poki.com/en/g/slime-laboratory",
+    "name": "Slime Laboratory",
+    "developer": "Neutronized"
+  },
+  {
+    "url": "https://poki.com/en/g/stickman-archero-fight",
+    "name": "Stickman Archero Fight",
+    "developer": "Art Industries"
+  },
+  {
+    "url": "https://poki.com/en/g/winter-clash-3d",
+    "name": "Winter Clash 3D",
+    "developer": "OOO Frivei Interaktiv"
+  },
+  {
+    "url": "https://poki.com/en/g/kawaii-fruits-3d",
+    "name": "Kawaii Fruits 3D",
+    "developer": "Okashi Games"
+  },
+  {
+    "url": "https://poki.com/en/g/fruit-ninja",
+    "name": "Fruit Ninja",
+    "developer": "Storms"
+  },
+  {
+    "url": "https://poki.com/en/g/infiltrating-the-airship",
+    "name": "Infiltrating the Airship",
+    "developer": "PuffballsUnited"
+  },
+  {
+    "url": "https://poki.com/en/g/solitaire-klondike-2",
+    "name": "Solitaire Klondike 2.0",
+    "developer": "Potato Jam"
+  },
+  {
+    "url": "https://poki.com/en/g/basketball-stars",
+    "name": "Basketball Stars",
+    "developer": "Madpuffers"
+  },
+  {
     "url": "https://poki.com/en/g/drive-mad",
     "name": "Drive Mad",
     "developer": "Fancade",
@@ -109,18 +262,13 @@
     }
   },
   {
-    "url": "https://poki.com/en/g/subway-surfers",
-    "name": "Subway Surfers",
-    "developer": "SYBO",
-    "google_detail": {},
-    "app_detail": {}
-  },
-  {
     "url": "https://poki.com/en/g/minefun-io",
     "name": "MineFun.io",
     "developer": "Vectaria",
     "google_detail": {},
-    "app_detail": {}
+    "app_detail": {},
+    "google_search_url": "https://play.google.com/store/search?q=MineFun.io&hl=en",
+    "apple_search_url": "https://www.apple.com/us/search/MineFun.io?src=serp"
   },
   {
     "url": "https://poki.com/en/g/monkey-mart",

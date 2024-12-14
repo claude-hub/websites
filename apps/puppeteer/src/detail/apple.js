@@ -34,7 +34,7 @@ const appleDetail = async (url = '', game) => {
 	const link = $('.product-header__identity a');
 	const developer = link.text().trim();
 
-	if (developer !== game.developer) {
+	if (!developer.toLocaleLowerCase().includes(game.developer.toLocaleLowerCase())) {
 		console.error('developer is not match');
 		return {};
 	}
@@ -61,7 +61,7 @@ const appleDetail = async (url = '', game) => {
 			detail.price = $(item).find('dd').text().trim();
 		}
 		if (currentName === 'In-App Purchases') {
-			detail.in_app_purchase = $(item).find('dd .medium-show-tablecell').text().trim();
+			detail.in_app_purchase = $(item).find('dd .medium-show-tablecell:first').text().trim();
 		}
 	}
 	return detail;
