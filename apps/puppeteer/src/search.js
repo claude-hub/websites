@@ -1,4 +1,4 @@
-import { exit } from 'process';
+const { getGoogleDetail } = require('./detail/google');
 
 const fs = require('fs');
 const puppeteer = require('puppeteer');
@@ -11,30 +11,19 @@ const googlePlaySearchUrl = `${googlePlay}/store/search?q=`;
 const googleSearchUrl = 'https://www.google.com/search?q=';
 
 const gamesFileName = 'games.json';
-
-interface Game {
-	origin_url: string;
-	text: string;
-	google_play: string;
-	found: boolean;
-	google_id: string;
-}
-
-type PartialGame = Partial<Game>;
-
-const getOriginGameList = async (): Promise<PartialGame[]> => {
+const getOriginGameList = async () => {
 	fs.existsSync(gamesFileName) || fs.writeFileSync(gamesFileName, '[]');
 
 	const gamesFile = fs.readFileSync(gamesFileName, 'utf8');
 
-	const games: PartialGame[] = JSON.parse(gamesFile);
+	const games = JSON.parse(gamesFile);
 	let hasChange = false;
 
 	const res = await fetch(original + '/en');
 	const html = await res.text();
 	const $ = cheerio.load(html);
 	const a = $('.vtbwTfQNi80Hes0DzmGs:first a');
-	a.each((i: number, element: Element) => {
+	a.each((i, element) => {
 		const gameName = $(element).text();
 		const gameUrl = original + $(element).attr('href');
 
@@ -55,7 +44,7 @@ const getOriginGameList = async (): Promise<PartialGame[]> => {
 	return games;
 };
 
-const getGooglePlayUrl = async (game: PartialGame): Promise<PartialGame> => {
+const getGooglePlayUrl = async (game) => {
 	if (game.google_id || game.found === false) return game;
 
 	// &hl=en 为英文
@@ -93,7 +82,7 @@ const getGooglePlayUrl = async (game: PartialGame): Promise<PartialGame> => {
 	};
 };
 
-const getAppStoreUrl = async (game: PartialGame): Promise<PartialGame> => {
+const getAppStoreUrl = async (game) => {
 	if (game.found) {
 		const searchUrl = googleSearchUrl + `${game.text} site:apps.apple.com`;
 		console.log('google search url: ', searchUrl);
@@ -123,9 +112,19 @@ const searchGames = async () => {
 		const game = games[i];
 		const res = await getGooglePlayUrl(game);
 
+		let googleDetail;
+		if (res.google_play) {
+			console.log(res.google_play);
+			// if (res.google_play && !res.detail) {
+			googleDetail = await getGoogleDetail(res.google_play);
+		}
+
 		// await getAppStoreUrl(res);
 
-		games[i] = res;
+		games[i] = {
+			...res,
+			...(googleDetail ? { detail: googleDetail } : undefined)
+		};
 		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
 	}
 };

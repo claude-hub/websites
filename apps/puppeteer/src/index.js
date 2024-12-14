@@ -1,6 +1,6 @@
 const { searchGames: search } = require('./search');
 
-const main = () => {
+const main = async () => {
 	search();
 };
 
