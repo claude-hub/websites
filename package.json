@@ -14,12 +14,14 @@
 		"clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
 	},
 	"dependencies": {
+		"@next/third-parties": "^15.0.3",
 		"lodash": "^4.17.21",
 		"next": "^15.0.3",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
+		"@types/lodash": "^4.17.13",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",

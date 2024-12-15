@@ -5,6 +5,7 @@ const { getAppleDetail } = require('./detail/apple');
 const { isEmpty } = require('lodash');
 
 const original = 'https://poki.com';
+// https://www.crazygames.com/
 
 const gamesFileName = 'games.json';
 
@@ -30,12 +31,12 @@ const getPoKiDeveloper = async (url) => {
 // 	console.log('====');
 // 	// const newGames = games.map((item) => {
 // 	// 	return {
-// 	// 		url: item.origin_url,
+// 	// 		origin_url: item.origin_url,
 // 	// 		name: item.text,
 // 	// 		developer: item.developer
 // 	// 	};
 // 	// });
-// 	fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
+// 	fs.writeFileSync(gamesFileName, JSON.stringify(games, null, '\t'));
 // };
 
 const getOriginGameList = async () => {
@@ -53,14 +54,18 @@ const getOriginGameList = async () => {
 	for (let i = 0; i < a.length; i++) {
 		const element = a[i];
 		const gameName = $(element).text().trim();
-		const gameUrl = original + $(element).attr('href');
+		const text = $(element).attr('href');
+		// poki 的 url 有前缀
+		const url = text.replace('/en/g', '');
+		const gameUrl = original + url;
 
 		// 如果游戏列表中没有这个游戏，则添加
-		if (games.every((g) => g.url !== gameUrl)) {
+		if (games.every((g) => g.url !== url)) {
 			hasChange = true;
 			const developer = await getPoKiDeveloper(gameUrl);
 			games.unshift({
-				url: gameUrl,
+				url,
+				origin_url: gameUrl,
 				name: gameName,
 				developer
 			});
@@ -69,7 +74,7 @@ const getOriginGameList = async () => {
 
 	if (hasChange) {
 		console.log('==游戏有更新==');
-		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
+		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, '\t'));
 	}
 
 	return games;
@@ -95,7 +100,7 @@ const searchGames = async () => {
 
 		games[i] = game;
 
-		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, 2));
+		fs.writeFileSync(gamesFileName, JSON.stringify(games, null, '\t'));
 	}
 };
 

@@ -1,7 +1,6 @@
 {
 	"name": "@games/download-site",
 	"version": "0.1.0",
-	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
@@ -9,8 +8,9 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@games/puppeteer": "workspace:^",
 		"@mono/components": "workspace:^",
-		"@next/third-parties": "^15.0.3",
+		"@mono/utils": "workspace:^",
 		"next": "^15.0.3"
 	},
 	"devDependencies": {
