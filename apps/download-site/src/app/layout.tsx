@@ -21,6 +21,11 @@ export default function RootLayout({
 			{!isDev && (
 				<head>
 					<GoogleTagManager gtmId={gtmId} />
+					<script
+						async
+						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6215606311487003"
+						crossOrigin="anonymous"
+					></script>
 				</head>
 			)}
 
