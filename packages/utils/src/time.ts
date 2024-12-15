@@ -1,5 +1,5 @@
-import dayjs from "dayjs"
+import dayjs from 'dayjs';
 
 export const currentYear = () => {
-  return dayjs().year()
-}
+	return dayjs().year();
+};

@@ -1,8 +1,8 @@
 {
-  "name": "@mono/config-ts",
-  "version": "1.0.0",
-  "description": "",
-  "exports": {
-    ".": "./tsconfig.json"
-  }
+	"name": "@mono/config-ts",
+	"version": "1.0.0",
+	"description": "",
+	"exports": {
+		".": "./tsconfig.json"
+	}
 }
