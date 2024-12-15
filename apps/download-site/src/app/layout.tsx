@@ -1,3 +1,4 @@
+import { Footer } from '@/components';
 import { isDev } from '@mono/utils';
 import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
@@ -23,8 +24,9 @@ export default function RootLayout({
 				</head>
 			)}
 
-			<body>
-				<div className="flex flex-col min-h-screen">{children}</div>
+			<body className="flex min-h-screen flex-col">
+				<div className="flex-1">{children}</div>
+				<Footer />
 			</body>
 		</html>
 	);
