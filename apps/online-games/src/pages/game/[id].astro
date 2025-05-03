@@ -1,0 +1,234 @@
+---
+import GameCard from '../../components/GameCard.astro';
+import Layout from '../../layouts/Layout.astro';
+import gamesData from '../../service/games.json';
+
+export function getStaticPaths() {
+  return gamesData.map((game) => ({
+    params: { id: game.id },
+    props: { game }
+  }));
+}
+
+const { game } = Astro.props;
+
+const relatedGames = gamesData
+  .filter((g) => g.category === game.category && g.id !== game.id)
+  .slice(0, 3);
+---
+
+<Layout title={`${game.title}`} description={game.description}>
+  <div class="relative">
+    <div class="absolute inset-0 h-64 md:h-96 bg-gradient-to-b from-game-primary/30 to-game-dark">
+      <img src={game.thumb} alt={game.title} class="w-full h-full object-cover opacity-20" />
+      <div class="absolute inset-0 bg-gradient-to-t from-game-dark via-game-dark/90 to-transparent">
+      </div>
+    </div>
+
+    <div class="container mx-auto pt-4 md:pt-6 pb-6 md:pb-8 relative z-10">
+      <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+        <div class="md:w-1/3 lg:w-1/4">
+          <div class="relative">
+            <img src={game.thumb} alt={game.title} class="w-full rounded-lg shadow-game" />
+            <span
+              class="absolute top-4 left-4 bg-game-primary text-white px-2 py-1 rounded-full text-xs"
+            >
+              {game.category}
+            </span>
+          </div>
+
+          <div class="glass-effect mt-4 md:mt-6 p-4 md:p-6 rounded-lg">
+            <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 text-gradient">Game Info</h3>
+            <div class="space-y-2 md:space-y-3 text-sm md:text-base">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Category:</span>
+                <span>{game.category}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Rating:</span>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:w-2/3 lg:w-3/4">
+          <div class="mb-2 text-sm">
+            <a href="/" class="text-game-primary hover:text-game-accent">
+              <i class="fas fa-home mr-1"></i> Home
+            </a>
+            <span class="mx-2 text-gray-500">/</span>
+            <a href={`/category/${game.category}`} class="text-game-primary hover:text-game-accent">
+              {game.category}
+            </a>
+            <span class="mx-2 text-gray-500">/</span>
+            <span class="text-gray-400">{game.title}</span>
+          </div>
+
+          <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">{game.title}</h1>
+
+          <div class="glass-effect p-4 md:p-6 rounded-lg mb-4">
+            <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gradient">Description</h2>
+            <p
+              class="text-gray-300 leading-relaxed text-sm md:text-base"
+              set:html={game.description}
+            />
+          </div>
+          <div class="glass-effect p-4 md:p-6 rounded-lg">
+            <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gradient">How to Play</h2>
+            <div class="space-y-3 md:space-y-4 text-sm md:text-base">
+              {game.instructions}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="pb-8 md:pb-12 bg-game-dark/50">
+    <div class="container mx-auto">
+      <div class="glass-effect p-3 md:p-4 rounded-lg">
+        <div class="game-container">
+          <div
+            id="game-placeholder"
+            class="aspect-video bg-black/50 rounded flex items-center justify-center"
+          >
+            <div class="text-center">
+              <div class="text-4xl md:text-5xl text-game-primary mb-3 md:mb-4">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <h2 class="text-xl md:text-2xl font-bold mb-3 md:mb-4">Ready to Play?</h2>
+              <button id="start-game" class="btn btn-primary text-sm md:text-base">
+                <i class="fas fa-play mr-2"></i> Start Game
+              </button>
+            </div>
+          </div>
+          <iframe
+            id="game-frame"
+            src={game.url}
+            title={game.title}
+            class="aspect-video hidden w-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mobileGameContainer" class="fixed inset-0 bg-black z-50 hidden">
+    <button
+      id="mobileBackBtn"
+      class="absolute top-2 left-2 z-10 bg-game-primary text-white p-2 rounded-full shadow-lg"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+    </button>
+
+    <iframe
+      id="mobileGameFrame"
+      src=""
+      title={game.title}
+      class="w-full h-full border-0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+
+  <section class="py-8 md:py-12">
+    <div class="container mx-auto">
+      <h2 class="section-title mb-6 md:mb-8">
+        Related <span class="text-gradient">Games</span>
+      </h2>
+
+      {
+        relatedGames.length > 0 ? (
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {relatedGames.map((game) => (
+              <GameCard
+                id={game.id}
+                title={game.title}
+                description={game.description}
+                thumb={game.thumb}
+                category={game.category}
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-8">
+            <p class="text-gray-400">No related games found</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // 获取DOM元素
+  const startGameBtn = document.getElementById('start-game') as HTMLButtonElement;
+  const gamePlaceholder = document.getElementById('game-placeholder') as HTMLDivElement;
+  const gameFrame = document.getElementById('game-frame') as HTMLIFrameElement;
+
+  const mobileGameContainer = document.getElementById('mobileGameContainer') as HTMLDivElement;
+  const mobileBackBtn = document.getElementById('mobileBackBtn') as HTMLButtonElement;
+  const mobileGameFrame = document.getElementById('mobileGameFrame') as HTMLIFrameElement;
+
+  const isMobile = window.innerWidth < 768;
+
+  startGameBtn?.addEventListener('click', () => {
+    if (isMobile) {
+      mobileGameFrame.src = gameFrame.src;
+
+      mobileGameContainer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    } else {
+      gamePlaceholder.style.display = 'none';
+      gameFrame.style.display = 'block';
+    }
+  });
+
+  mobileBackBtn.addEventListener('click', () => {
+    mobileGameContainer.classList.add('hidden');
+    document.body.style.overflow = '';
+
+    mobileGameFrame.src = '';
+  });
+
+  window.addEventListener('resize', () => {
+    const newIsMobile = window.innerWidth < 768;
+
+    if (newIsMobile !== isMobile) {
+      location.reload();
+    }
+  });
+</script>
+
+<style>
+  /* 移动端样式 */
+  @media (max-width: 768px) {
+    #game-frame {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+    }
+  }
+</style>

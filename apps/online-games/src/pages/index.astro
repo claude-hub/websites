@@ -1,0 +1,160 @@
+---
+import GameCard from '../components/GameCard.astro';
+import Layout from '../layouts/Layout.astro';
+import gamesData from '../service/games.json';
+
+const games = gamesData;
+
+const categories = [...new Set(games.map((game) => game.category))];
+
+const popularGames = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
+---
+
+<Layout title="Play Amazing Online Games for Free">
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-game-dark">
+      <div class="absolute inset-0 bg-gradient-to-r from-game-primary/20 to-game-dark"></div>
+    </div>
+    <div
+      class="absolute -top-24 -right-24 w-96 h-96 bg-game-primary/30 rounded-full filter blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute -bottom-24 -left-24 w-96 h-96 bg-game-accent/20 rounded-full filter blur-3xl"
+    >
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            Discover & Play <span class="text-gradient">Amazing Games</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            Explore our collection of free online games. No downloads required - play directly in
+            your browser!
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#games" class="btn btn-primary">
+              <i class="fas fa-gamepad mr-2"></i> Browse Games
+            </a>
+            <a href="/popular" class="btn bg-white/10 hover:bg-white/20 text-white">
+              <i class="fas fa-fire mr-2"></i> Popular Games
+            </a>
+          </div>
+
+          <div class="flex flex-wrap gap-8 mt-12">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-gradient">{games.length}+</div>
+              <div class="text-gray-400">Games</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-gradient">{categories.length}</div>
+              <div class="text-gray-400">Categories</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:w-1/2 flex justify-center">
+          <div class="relative w-full max-w-md">
+            <div
+              class="absolute -right-4 -bottom-4 w-full h-full border-4 border-game-primary rounded-lg"
+            >
+            </div>
+
+            <div class="absolute -right-10 -top-10 text-5xl text-game-primary animate-pulse-slow">
+              <i class="fas fa-gamepad"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8 bg-gradient-to-b from-game-dark to-game-dark/50">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title text-center mb-8">
+        Game <span class="text-gradient">Categories</span>
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {
+          categories.map((category) => (
+            <a
+              href={`/category/${category}`}
+              class="glass-effect p-4 text-center transition-all hover:scale-105 hover:shadow-game"
+            >
+              <h3 class="font-medium">{category}</h3>
+              <p class="text-sm text-gray-400 mt-1">
+                {games.filter((game) => game.category === category).length} games
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="section-title">
+          Popular <span class="text-gradient">Games</span>
+        </h2>
+        <a href="/popular" class="btn btn-primary">View All</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {
+          popularGames.map((game) => (
+            <GameCard
+              id={game.id}
+              title={game.title}
+              description={game.description}
+              thumb={game.thumb}
+              category={game.category}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="games" class="py-8 bg-gradient-to-b from-game-dark/50 to-game-dark">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title text-center mb-8">
+        All <span class="text-gradient">Games</span>
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {
+          games.map((game) => (
+            <GameCard
+              id={game.id}
+              title={game.title}
+              description={game.description}
+              thumb={game.thumb}
+              category={game.category}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-game-primary to-game-secondary opacity-90">
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">Ready to Start Playing?</h2>
+      <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+        Join thousands of players and discover new exciting games. No downloads required, play
+        directly in your browser!
+      </p>
+      <a href="#games" class="btn bg-white text-game-primary hover:bg-gray-100">
+        <i class="fas fa-gamepad mr-2"></i> Start Playing Now
+      </a>
+    </div>
+  </section>
+</Layout>
