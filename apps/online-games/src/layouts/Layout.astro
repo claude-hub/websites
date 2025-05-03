@@ -3,8 +3,8 @@ import { Image } from 'astro:assets';
 import '../styles/global.css';
 
 export interface Props {
-  title: string;
-  description?: string;
+	title: string;
+	description?: string;
 }
 
 const { title, description = 'Online Games Platform, offering various fun games' } = Astro.props;
@@ -12,170 +12,174 @@ const { title, description = 'Online Games Platform, offering various fun games'
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <title>{title}</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <header class="sticky top-0 z-50 bg-game-dark/90 backdrop-blur-md shadow-lg">
-      <div class="container mx-auto py-3 md:py-4">
-        <div class="flex justify-between items-center">
-          <a href="/" class="flex items-center space-x-2">
-            <span class="text-2xl md:text-3xl text-game-primary">
-              <!-- <Image src="/logo.svg" alt="logo" width={32} height={32} /> -->
-              <i class="fas fa-gamepad"></i>
-            </span>
-            <span class="text-xl md:text-2xl font-bold text-gradient">GameVerse</span>
-          </a>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6215606311487003"
+			crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<header class="sticky top-0 z-50 bg-game-dark/90 backdrop-blur-md shadow-lg">
+			<div class="container mx-auto py-3 md:py-4">
+				<div class="flex justify-between items-center">
+					<a href="/" class="flex items-center space-x-2">
+						<span class="text-2xl md:text-3xl text-game-primary">
+							<!-- <Image src="/logo.svg" alt="logo" width={32} height={32} /> -->
+							<i class="fas fa-gamepad"></i>
+						</span>
+						<span class="text-xl md:text-2xl font-bold text-gradient">GameVerse</span>
+					</a>
 
-          <nav class="hidden md:block">
-            <ul class="flex space-x-6 lg:space-x-8">
-              <li>
-                <a href="/" class="game-nav-link"><i class="fas fa-home mr-2"></i>Home</a>
-              </li>
-              <li>
-                <a href="/popular" class="game-nav-link"><i class="fas fa-fire mr-2"></i>Popular</a>
-              </li>
-            </ul>
-          </nav>
+					<nav class="hidden md:block">
+						<ul class="flex space-x-6 lg:space-x-8">
+							<li>
+								<a href="/" class="game-nav-link"><i class="fas fa-home mr-2"></i>Home</a>
+							</li>
+							<li>
+								<a href="/popular" class="game-nav-link"><i class="fas fa-fire mr-2"></i>Popular</a>
+							</li>
+						</ul>
+					</nav>
 
-          <button id="mobile-menu-button" class="md:hidden text-xl p-2">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
+					<button id="mobile-menu-button" class="md:hidden text-xl p-2">
+						<i class="fas fa-bars"></i>
+					</button>
+				</div>
+			</div>
 
-      <div id="mobile-menu" class="md:hidden hidden bg-game-card p-4 shadow-lg">
-        <ul class="space-y-3">
-          <li>
-            <a href="/" class="block py-2 px-4 hover:bg-game-primary rounded transition-colors"
-              ><i class="fas fa-home mr-2"></i>Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="/popular"
-              class="block py-2 px-4 hover:bg-game-primary rounded transition-colors"
-              ><i class="fas fa-fire mr-2"></i>Popular</a
-            >
-          </li>
-        </ul>
-      </div>
-    </header>
+			<div id="mobile-menu" class="md:hidden hidden bg-game-card p-4 shadow-lg">
+				<ul class="space-y-3">
+					<li>
+						<a href="/" class="block py-2 px-4 hover:bg-game-primary rounded transition-colors"
+							><i class="fas fa-home mr-2"></i>Home</a
+						>
+					</li>
+					<li>
+						<a
+							href="/popular"
+							class="block py-2 px-4 hover:bg-game-primary rounded transition-colors"
+							><i class="fas fa-fire mr-2"></i>Popular</a
+						>
+					</li>
+				</ul>
+			</div>
+		</header>
 
-    <main class="min-h-screen">
-      <slot />
-    </main>
+		<main class="min-h-screen">
+			<slot />
+		</main>
 
-    <footer class="bg-game-dark border-t border-gray-800 mt-8 md:mt-12 py-8 md:py-12">
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          <div class="col-span-1 sm:col-span-2">
-            <div class="flex items-center space-x-2 mb-4">
-              <span class="text-2xl md:text-3xl text-game-primary"
-                ><i class="fas fa-gamepad"></i></span
-              >
-              <span class="text-xl md:text-2xl font-bold text-gradient">GameVerse</span>
-            </div>
-            <p class="text-gray-400 mb-6 text-sm md:text-base">
-              Explore amazing games and start your gaming journey today! Our platform offers a wide
-              variety of online games that you can play directly in your browser.
-            </p>
-          </div>
+		<footer class="bg-game-dark border-t border-gray-800 mt-8 md:mt-12 py-8 md:py-12">
+			<div class="container mx-auto">
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+					<div class="col-span-1 sm:col-span-2">
+						<div class="flex items-center space-x-2 mb-4">
+							<span class="text-2xl md:text-3xl text-game-primary"
+								><i class="fas fa-gamepad"></i></span
+							>
+							<span class="text-xl md:text-2xl font-bold text-gradient">GameVerse</span>
+						</div>
+						<p class="text-gray-400 mb-6 text-sm md:text-base">
+							Explore amazing games and start your gaming journey today! Our platform offers a wide
+							variety of online games that you can play directly in your browser.
+						</p>
+					</div>
 
-          <div class="sm:col-span-2 flex">
-            <div class="w-1/2">
-              <h3 class="text-lg md:text-xl font-bold mb-4 text-gradient">Quick Links</h3>
-              <ul class="space-y-2">
-                <li>
-                  <a
-                    href="/"
-                    class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
-                    >Home</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="/popular"
-                    class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
-                    >Popular Games</a
-                  >
-                </li>
-              </ul>
-            </div>
+					<div class="sm:col-span-2 flex">
+						<div class="w-1/2">
+							<h3 class="text-lg md:text-xl font-bold mb-4 text-gradient">Quick Links</h3>
+							<ul class="space-y-2">
+								<li>
+									<a
+										href="/"
+										class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
+										>Home</a
+									>
+								</li>
+								<li>
+									<a
+										href="/popular"
+										class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
+										>Popular Games</a
+									>
+								</li>
+							</ul>
+						</div>
 
-            <div>
-              <h3 class="text-lg md:text-xl font-bold mb-4 text-gradient">Legal</h3>
-              <ul class="space-y-2">
-                <li>
-                  <a
-                    href="/privacy-policy"
-                    class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
-                    >Privacy Policy</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="/terms-of-service"
-                    class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
-                    >Terms of Service</a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
-                    href="mailto:service@claude-hub.cn"
-                  >
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+						<div>
+							<h3 class="text-lg md:text-xl font-bold mb-4 text-gradient">Legal</h3>
+							<ul class="space-y-2">
+								<li>
+									<a
+										href="/privacy-policy"
+										class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
+										>Privacy Policy</a
+									>
+								</li>
+								<li>
+									<a
+										href="/terms-of-service"
+										class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
+										>Terms of Service</a
+									>
+								</li>
+								<li>
+									<a
+										class="text-gray-400 hover:text-game-primary flex items-center text-sm md:text-base"
+										href="mailto:service@claude-hub.cn"
+									>
+										Contact Us
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-        <div class="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8">
-          <div class="flex flex-col sm:flex-row justify-between items-center">
-            <p class="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} GameVerse. All rights reserved.
-            </p>
-            <p class="text-gray-500 text-sm mt-2 sm:mt-0">
-              Designed with <i class="fas fa-heart text-red-500"></i> for gamers
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
+				<div class="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8">
+					<div class="flex flex-col sm:flex-row justify-between items-center">
+						<p class="text-gray-400 text-sm">
+							&copy; {new Date().getFullYear()} GameVerse. All rights reserved.
+						</p>
+						<p class="text-gray-500 text-sm mt-2 sm:mt-0">
+							Designed with <i class="fas fa-heart text-red-500"></i> for gamers
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
 
-    <script>
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
+		<script>
+			const mobileMenuButton = document.getElementById('mobile-menu-button');
+			const mobileMenu = document.getElementById('mobile-menu');
 
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-          const icon = mobileMenuButton.querySelector('i');
-          if (icon.classList.contains('fa-bars')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-          } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-          }
-        });
-      }
+			if (mobileMenuButton && mobileMenu) {
+				mobileMenuButton.addEventListener('click', () => {
+					mobileMenu.classList.toggle('hidden');
+					const icon = mobileMenuButton.querySelector('i');
+					if (icon.classList.contains('fa-bars')) {
+						icon.classList.remove('fa-bars');
+						icon.classList.add('fa-times');
+					} else {
+						icon.classList.remove('fa-times');
+						icon.classList.add('fa-bars');
+					}
+				});
+			}
 
-      document.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('fade-in');
-      });
-    </script>
-  </body>
+			document.addEventListener('DOMContentLoaded', () => {
+				document.body.classList.add('fade-in');
+			});
+		</script>
+	</body>
 </html>
