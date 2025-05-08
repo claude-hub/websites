@@ -3,11 +3,10 @@ import GameCard from '../components/GameCard.astro';
 import Layout from '../layouts/Layout.astro';
 import gamesData from '../service/games.json';
 
-const games = gamesData;
-
-const categories = [...new Set(games.map((game) => game.category))];
-
-const popularGames = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
+const games = [...gamesData].sort(() => 0.5 - Math.random());
+const categories = [...new Set(gamesData.map((game) => game.category))];
+const popularGames = games.slice(0, 4);
+const allGames = games.slice(4);
 ---
 
 <Layout title="Play Amazing Online Games for Free">
@@ -45,7 +44,7 @@ const popularGames = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
 
 					<div class="flex flex-wrap gap-8 mt-12">
 						<div class="text-center">
-							<div class="text-3xl font-bold text-gradient">{games.length}+</div>
+							<div class="text-3xl font-bold text-gradient">{gamesData.length}+</div>
 							<div class="text-gray-400">Games</div>
 						</div>
 						<div class="text-center">
@@ -86,7 +85,7 @@ const popularGames = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
 						>
 							<h3 class="font-medium">{category}</h3>
 							<p class="text-sm text-gray-400 mt-1">
-								{games.filter((game) => game.category === category).length} games
+								{gamesData.filter((game) => game.category === category).length} games
 							</p>
 						</a>
 					))
@@ -128,7 +127,7 @@ const popularGames = [...games].sort(() => 0.5 - Math.random()).slice(0, 4);
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 				{
-					games.map((game) => (
+					allGames.map((game) => (
 						<GameCard
 							id={game.id}
 							title={game.title}

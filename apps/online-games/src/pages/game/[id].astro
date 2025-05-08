@@ -97,7 +97,7 @@ const relatedGames = gamesData
 	<section class="pb-8 md:pb-12 bg-game-dark/50">
 		<div class="container mx-auto">
 			<div class="glass-effect p-3 md:p-4 rounded-lg">
-				<div class="game-container">
+				<div class="game-container relative">
 					<div
 						id="game-placeholder"
 						class="aspect-video bg-black/50 rounded flex items-center justify-center"
@@ -119,6 +119,14 @@ const relatedGames = gamesData
 						class="aspect-video hidden w-full border-0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowfullscreen></iframe>
+
+					<button
+						id="fullscreen-btn"
+						class="hidden absolute w-10 top-4 right-4 bg-game-primary text-white p-2 rounded-full shadow-lg hover:bg-game-accent transition-colors"
+						title="Toggle Fullscreen"
+					>
+						<i class="fas fa-expand"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -187,6 +195,7 @@ const relatedGames = gamesData
 	const startGameBtn = document.getElementById('start-game') as HTMLButtonElement;
 	const gamePlaceholder = document.getElementById('game-placeholder') as HTMLDivElement;
 	const gameFrame = document.getElementById('game-frame') as HTMLIFrameElement;
+	const fullscreenBtn = document.getElementById('fullscreen-btn') as HTMLButtonElement;
 
 	const mobileGameContainer = document.getElementById('mobileGameContainer') as HTMLDivElement;
 	const mobileBackBtn = document.getElementById('mobileBackBtn') as HTMLButtonElement;
@@ -197,25 +206,41 @@ const relatedGames = gamesData
 	startGameBtn?.addEventListener('click', () => {
 		if (isMobile) {
 			mobileGameFrame.src = gameFrame.src;
-
 			mobileGameContainer.classList.remove('hidden');
 			document.body.style.overflow = 'hidden';
 		} else {
 			gamePlaceholder.style.display = 'none';
 			gameFrame.style.display = 'block';
+			fullscreenBtn.classList.remove('hidden');
 		}
 	});
 
 	mobileBackBtn.addEventListener('click', () => {
 		mobileGameContainer.classList.add('hidden');
 		document.body.style.overflow = '';
-
 		mobileGameFrame.src = '';
+	});
+
+	// 全屏相关功能
+	fullscreenBtn.addEventListener('click', () => {
+		if (!document.fullscreenElement) {
+			gameFrame.requestFullscreen();
+			fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+		} else {
+			document.exitFullscreen();
+			fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+		}
+	});
+
+	// 监听ESC退出全屏
+	document.addEventListener('fullscreenchange', () => {
+		if (!document.fullscreenElement) {
+			fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+		}
 	});
 
 	window.addEventListener('resize', () => {
 		const newIsMobile = window.innerWidth < 768;
-
 		if (newIsMobile !== isMobile) {
 			location.reload();
 		}
