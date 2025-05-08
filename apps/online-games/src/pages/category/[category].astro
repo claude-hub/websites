@@ -4,40 +4,42 @@ import Layout from '../../layouts/Layout.astro';
 import gamesData from '../../service/games.json';
 
 export function getStaticPaths() {
-  const categories = [...new Set(gamesData.map((game) => game.category))];
+	const categories = [...new Set(gamesData.map((game) => game.category))];
 
-  return categories.map((category) => {
-    const filteredGames = gamesData.filter((game) => game.category === category);
-    return {
-      params: { category },
-      props: { category, games: filteredGames }
-    };
-  });
+	return categories.map((category) => {
+		const filteredGames = gamesData.filter(
+			(game) => game.category.toLowerCase() === category.toLowerCase()
+		);
+		return {
+			params: { category: category.toLowerCase() },
+			props: { category, games: filteredGames }
+		};
+	});
 }
 
 const { category, games } = Astro.props;
 ---
 
 <Layout title={`${category} Games - Online Games`}>
-  <div class="container mx-auto px-4">
-    <div class="mb-8 mt-4">
-      <a href="/" class="text-game-primary hover:underline">&larr; Back to Home</a>
-    </div>
+	<div class="container mx-auto px-4">
+		<div class="mb-8 mt-4">
+			<a href="/" class="text-game-primary hover:underline">&larr; Back to Home</a>
+		</div>
 
-    <h1 class="text-3xl font-bold mb-6">{category} Games</h1>
+		<h1 class="text-3xl font-bold mb-6">{category} Games</h1>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {
-        games.map((game) => (
-          <GameCard
-            id={game.id}
-            title={game.title}
-            description={game.description}
-            thumb={game.thumb}
-            category={game.category}
-          />
-        ))
-      }
-    </div>
-  </div>
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+			{
+				games.map((game) => (
+					<GameCard
+						id={game.id}
+						title={game.title}
+						description={game.description}
+						thumb={game.thumb}
+						category={game.category}
+					/>
+				))
+			}
+		</div>
+	</div>
 </Layout>
