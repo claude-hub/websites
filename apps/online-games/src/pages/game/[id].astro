@@ -14,7 +14,7 @@ const { game } = Astro.props;
 
 const relatedGames = gamesData
 	.filter((g) => g.category === game.category && g.id !== game.id)
-	.slice(0, 3);
+	.slice(0, 4);
 ---
 
 <Layout title={`${game.title}`} description={game.description}>
@@ -169,7 +169,7 @@ const relatedGames = gamesData
 
 			{
 				relatedGames.length > 0 ? (
-					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
 						{relatedGames.map((game) => (
 							<GameCard
 								id={game.id}

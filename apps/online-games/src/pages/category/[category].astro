@@ -1,11 +1,10 @@
 ---
 import GameCard from '../../components/GameCard.astro';
 import Layout from '../../layouts/Layout.astro';
+import { categories } from '../../service';
 import gamesData from '../../service/games.json';
 
 export function getStaticPaths() {
-	const categories = [...new Set(gamesData.map((game) => game.category))];
-
 	return categories.map((category) => {
 		const filteredGames = gamesData.filter(
 			(game) => game.category.toLowerCase() === category.toLowerCase()
@@ -21,9 +20,13 @@ const { category, games } = Astro.props;
 ---
 
 <Layout title={`${category} Games - Online Games`}>
-	<div class="container mx-auto px-4">
-		<div class="mb-8 mt-4">
-			<a href="/" class="text-game-primary hover:underline">&larr; Back to Home</a>
+	<div class="container mx-auto">
+		<div class="mb-8 mt-4 text-sm">
+			<a href="/" class="text-game-primary hover:text-game-accent">
+				<i class="fas fa-home mr-1"></i> Home
+			</a>
+			<span class="mx-2 text-gray-500">/</span>
+			<span class="text-gray-400">{category} Games</span>
 		</div>
 
 		<h1 class="text-3xl font-bold mb-6">{category} Games</h1>

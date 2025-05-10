@@ -1,31 +1,35 @@
 ---
 import GameCard from '../components/GameCard.astro';
 import Layout from '../layouts/Layout.astro';
-import gamesData from '../service/games.json';
+import { games } from '../service';
 
-// For demonstration, we randomly select some games as "popular" games
-const popularGames = [...gamesData].sort(() => 0.5 - Math.random()).slice(0, 8);
+const popularGames = games.slice(0, 48);
 ---
 
 <Layout title="Popular Games - Online Games">
-  <div class="container mx-auto px-4">
-    <div class="mb-8 mt-4">
-      <a href="/" class="text-game-primary hover:underline">&larr; Back to Home</a>
-    </div>
-    <h1 class="text-3xl font-bold mb-6">Popular Games</h1>
+	<div class="container mx-auto">
+		<div class="mb-8 mt-4 text-sm">
+			<a href="/" class="text-game-primary hover:text-game-accent">
+				<i class="fas fa-home mr-1"></i> Home
+			</a>
+			<span class="mx-2 text-gray-500">/</span>
+			<span class="text-gray-400">Popular Games</span>
+		</div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {
-        popularGames.map((game) => (
-          <GameCard
-            id={game.id}
-            title={game.title}
-            description={game.description}
-            thumb={game.thumb}
-            category={game.category}
-          />
-        ))
-      }
-    </div>
-  </div>
+		<h1 class="text-3xl font-bold mb-6">Popular Games</h1>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+			{
+				popularGames.map((game) => (
+					<GameCard
+						id={game.id}
+						title={game.title}
+						description={game.description}
+						thumb={game.thumb}
+						category={game.category}
+					/>
+				))
+			}
+		</div>
+	</div>
 </Layout>

@@ -1,0 +1,86 @@
+---
+export interface Props {
+	currentPage: number;
+	totalPages: number;
+	generatePaginationArray?: (current: number, total: number) => (number | string)[];
+}
+
+const { currentPage, totalPages, generatePaginationArray } = Astro.props;
+
+const defaultGeneratePaginationArray = (current: number, total: number) => {
+	const delta = 1;
+	const range = [];
+	const rangeWithDots = [];
+	let l;
+
+	for (let i = 1; i <= total; i++) {
+		if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+			range.push(i);
+		}
+	}
+
+	for (let i of range) {
+		if (l) {
+			if (i - l === 2) {
+				rangeWithDots.push(l + 1);
+			} else if (i - l !== 1) {
+				rangeWithDots.push('...');
+			}
+		}
+		rangeWithDots.push(i);
+		l = i;
+	}
+
+	return rangeWithDots;
+};
+
+const paginationArray = generatePaginationArray
+	? generatePaginationArray(currentPage, totalPages)
+	: defaultGeneratePaginationArray(currentPage, totalPages);
+---
+
+<div class="flex flex-col items-center gap-4 mt-10">
+	<div class="flex gap-2 text-xs md:text-base">
+		{
+			currentPage > 1 && (
+				<a
+					href={currentPage === 2 ? '/' : `/page/${currentPage - 1}`}
+					class="px-3 md:px-4 py-2 bg-game-card hover:bg-game-primary text-white rounded transition"
+				>
+					<i class="fas fa-chevron-left mr-1" /> <span class="hidden md:inline">Previous</span>
+				</a>
+			)
+		}
+
+		{
+			paginationArray.map((page) =>
+				page === '...' ? (
+					<span class="px-3 md:px-4 py-2 text-gray-400">...</span>
+				) : (
+					<a
+						href={page === 1 ? '/' : `/page/${page}`}
+						class={`px-3 md:px-4 py-2 rounded transition ${
+							currentPage === page
+								? 'bg-game-primary text-white'
+								: 'bg-game-card hover:bg-game-primary text-white'
+						}`}
+					>
+						{page}
+					</a>
+				)
+			)
+		}
+
+		{
+			currentPage < totalPages && (
+				<a
+					href={`/page/${currentPage + 1}`}
+					class="px-3 md:px-4 py-2 bg-game-card hover:bg-game-primary text-white rounded transition"
+				>
+					<span class="hidden md:inline">Next</span>
+					<i class="fas fa-chevron-right ml-1" />
+				</a>
+			)
+		}
+	</div>
+</div>

@@ -1,12 +1,17 @@
 ---
 import GameCard from '../components/GameCard.astro';
+import Pagination from '../components/Pagination.astro';
 import Layout from '../layouts/Layout.astro';
-import gamesData from '../service/games.json';
+import { categories, games } from '../service';
+import { GAMES_PER_PAGE } from '../utils';
 
-const games = [...gamesData].sort(() => 0.5 - Math.random());
-const categories = [...new Set(gamesData.map((game) => game.category))];
 const popularGames = games.slice(0, 4);
-const allGames = games.slice(4);
+
+const gamesPerPage = GAMES_PER_PAGE;
+const currentPage = 1;
+const totalGames = games.slice(4);
+const totalPages = Math.ceil(totalGames.length / gamesPerPage);
+const allGames = totalGames.slice(0, gamesPerPage);
 ---
 
 <Layout title="Play Amazing Online Games for Free">
@@ -23,7 +28,7 @@ const allGames = games.slice(4);
 		>
 		</div>
 
-		<div class="container mx-auto px-4 relative z-10">
+		<div class="container mx-auto relative z-10">
 			<div class="flex flex-col md:flex-row items-center">
 				<div class="md:w-1/2 mb-10 md:mb-0">
 					<h1 class="text-4xl md:text-6xl font-bold mb-4">
@@ -44,7 +49,7 @@ const allGames = games.slice(4);
 
 					<div class="flex flex-wrap gap-8 mt-12">
 						<div class="text-center">
-							<div class="text-3xl font-bold text-gradient">{gamesData.length}+</div>
+							<div class="text-3xl font-bold text-gradient">{games.length}+</div>
 							<div class="text-gray-400">Games</div>
 						</div>
 						<div class="text-center">
@@ -71,12 +76,12 @@ const allGames = games.slice(4);
 	</section>
 
 	<section class="py-8 bg-gradient-to-b from-game-dark to-game-dark/50">
-		<div class="container mx-auto px-4">
+		<div class="container mx-auto">
 			<h2 class="section-title text-center mb-8">
 				Game <span class="text-gradient">Categories</span>
 			</h2>
 
-			<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+			<div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
 				{
 					categories.map((category) => (
 						<a
@@ -85,7 +90,7 @@ const allGames = games.slice(4);
 						>
 							<h3 class="font-medium">{category}</h3>
 							<p class="text-sm text-gray-400 mt-1">
-								{gamesData.filter((game) => game.category === category).length} games
+								{games.filter((game) => game.category === category).length} games
 							</p>
 						</a>
 					))
@@ -95,7 +100,7 @@ const allGames = games.slice(4);
 	</section>
 
 	<section class="py-8">
-		<div class="container mx-auto px-4">
+		<div class="container mx-auto">
 			<div class="flex justify-between items-center mb-8">
 				<h2 class="section-title">
 					Popular <span class="text-gradient">Games</span>
@@ -120,12 +125,14 @@ const allGames = games.slice(4);
 	</section>
 
 	<section id="games" class="py-8 bg-gradient-to-b from-game-dark/50 to-game-dark">
-		<div class="container mx-auto px-4">
+		<div class="container mx-auto">
 			<h2 class="section-title text-center mb-8">
 				All <span class="text-gradient">Games</span>
 			</h2>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+			<div
+				class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6"
+			>
 				{
 					allGames.map((game) => (
 						<GameCard
@@ -138,6 +145,8 @@ const allGames = games.slice(4);
 					))
 				}
 			</div>
+
+			<Pagination currentPage={currentPage} totalPages={totalPages} />
 		</div>
 	</section>
 
@@ -145,7 +154,7 @@ const allGames = games.slice(4);
 		<div class="absolute inset-0 bg-gradient-to-r from-game-primary to-game-secondary opacity-90">
 		</div>
 
-		<div class="container mx-auto px-4 relative z-10 text-center">
+		<div class="container mx-auto relative z-10 text-center">
 			<h2 class="text-4xl font-bold mb-6 text-white">Ready to Start Playing?</h2>
 			<p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
 				Join thousands of players and discover new exciting games. No downloads required, play

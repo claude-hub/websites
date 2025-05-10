@@ -1,0 +1,65 @@
+---
+import GameCard from '../../components/GameCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import Layout from '../../layouts/Layout.astro';
+import { games as allGames } from '../../service';
+import { GAMES_PER_PAGE } from '../../utils';
+
+export function getStaticPaths() {
+	const gamesPerPage = GAMES_PER_PAGE;
+	const totalGames = allGames.slice(4);
+	const totalPages = Math.ceil(totalGames.length / gamesPerPage);
+
+	// 生成除第一页外的所有页面路径
+	const paths = [];
+	for (let i = 2; i <= totalPages; i++) {
+		paths.push({
+			params: { page: i.toString() },
+			props: {
+				games: totalGames,
+				currentPage: i,
+				totalPages,
+				gamesPerPage
+			}
+		});
+	}
+
+	return paths;
+}
+
+const { games, totalPages, gamesPerPage } = Astro.props;
+const pageNumber = parseInt(Astro.params.page);
+
+const startIndex = (pageNumber - 1) * gamesPerPage;
+const endIndex = startIndex + gamesPerPage;
+const currentGames = games.slice(startIndex, endIndex);
+---
+
+<Layout title={`Online Games - Page ${pageNumber}`}>
+	<section id="games" class="py-8 bg-gradient-to-b from-game-dark/50 to-game-dark">
+		<div class="container mx-auto">
+			<h1 class="section-title text-center mb-8">
+				All <span class="text-gradient">Games</span>
+			</h1>
+
+			<div
+				class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6"
+			>
+				{
+					currentGames.map((game) => (
+						<GameCard
+							id={game.id}
+							title={game.title}
+							description={game.description}
+							thumb={game.thumb}
+							category={game.category}
+						/>
+					))
+				}
+			</div>
+
+			<!-- Pagination -->
+			<Pagination currentPage={pageNumber} totalPages={totalPages} />
+		</div>
+	</section>
+</Layout>

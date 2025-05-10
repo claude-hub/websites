@@ -1,0 +1,185 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content, headings } = await render(post);
+
+const h2Headings = headings.filter((heading) => heading.depth === 2);
+---
+
+<Layout title={post.data.title}>
+	<div class="container mx-auto">
+		<div class="mb-8 mt-4 text-sm">
+			<a href="/" class="text-game-primary hover:text-game-accent">
+				<i class="fas fa-home mr-1"></i> Home
+			</a>
+			<span class="mx-2 text-gray-500">/</span>
+			<a href={`/blog`} class="text-game-primary hover:text-game-accent"> Blog </a>
+			<span class="mx-2 text-gray-500">/</span>
+			<span class="text-gray-400">{post.data.title}</span>
+		</div>
+
+		<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+			{/* 文章主体 */}
+			<article class="prose prose-invert prose-lg max-w-none lg:col-span-3">
+				<h1 class="text-3xl font-bold mb-4">{post.data.title}</h1>
+
+				<div class="text-gray-400 mb-6">
+					{
+						new Date(post.data.lastModified).toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric'
+						})
+					}
+				</div>
+
+				{
+					post.data.img && (
+						<div class="mb-8">
+							<img
+								src={post.data.img}
+								alt={post.data.title}
+								class="w-full h-auto rounded-lg shadow-md"
+							/>
+						</div>
+					)
+				}
+
+				<div class="mt-8 posts-content">
+					<Content />
+				</div>
+			</article>
+
+			{
+				h2Headings.length > 0 && (
+					<aside class="lg:col-span-1 hidden lg:block">
+						<nav class="sticky top-[136px]">
+							<h3 class="text-xl font-semibold mb-4">Table of Contents</h3>
+							<ul class="space-y-2">
+								{h2Headings.map((heading) => (
+									<li>
+										<a
+											href={`#${heading.slug}`}
+											class="text-gray-400 hover:text-game-primary transition-colors"
+										>
+											{heading.text}
+										</a>
+									</li>
+								))}
+							</ul>
+						</nav>
+					</aside>
+				)
+			}
+		</div>
+	</div>
+</Layout>
+
+<style is:global>
+	.posts-content {
+		padding-bottom: 70px;
+		font-size: 16px;
+	}
+
+	.posts-content h1 {
+		font-size: 28px;
+		font-weight: 700;
+		text-align: center;
+		line-height: 35px;
+	}
+
+	.page-content h1 {
+		margin: 60px 0;
+	}
+
+	.posts-content p {
+		margin-bottom: 25px;
+		font-size: 16px;
+		line-height: 1.7em;
+	}
+
+	.posts-content h2 {
+		font-size: 23px;
+		font-weight: 700;
+		margin-bottom: 20px;
+		line-height: 30px;
+	}
+
+	.posts-content h3 {
+		font-weight: 700;
+		font-size: 19px;
+	}
+
+	.posts-content blockquote {
+		margin-top: 30px;
+	}
+
+	.posts-content blockquote p:first-child {
+		margin-top: 0;
+	}
+
+	.posts-content ul,
+	.posts-content ol {
+		margin-left: 25px;
+		margin-top: 25px;
+		list-style: disc;
+	}
+
+	.posts-content ul p {
+		margin-top: 10px;
+	}
+
+	.posts-content ul li {
+		/* margin-bottom: 22px; */
+		padding-left: 10px;
+		position: relative;
+		margin-bottom: 10px;
+		line-height: 1.5;
+	}
+
+	.posts-content ol li {
+		position: relative;
+		margin-bottom: 10px;
+		padding-left: 5px;
+		line-height: 24px;
+	}
+
+	.posts-content img {
+		max-width: 100%;
+		display: block;
+		margin: 10px auto;
+	}
+
+	.posts-content img.inline {
+		display: inline-block;
+	}
+
+	.posts-content .btn-hyper-gp {
+		margin: 0 auto;
+		width: 166px;
+		display: block;
+	}
+
+	.posts-content .btn-hyper-gp img {
+		margin: 0;
+	}
+
+	.posts-content .btn-blue {
+		padding: 11px 0;
+		height: 45px;
+		width: 166px;
+		display: block;
+		margin: 0 auto;
+	}
+</style>
