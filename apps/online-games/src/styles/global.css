@@ -115,3 +115,99 @@
 		opacity: 1;
 	}
 }
+
+.posts-content {
+	padding-bottom: 70px;
+	font-size: 16px;
+}
+
+.posts-content h1 {
+	font-size: 28px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 35px;
+}
+
+.page-content h1 {
+	margin: 60px 0;
+}
+
+.posts-content p {
+	margin-bottom: 25px;
+	font-size: 16px;
+	line-height: 1.7em;
+}
+
+.posts-content h2 {
+	font-size: 23px;
+	font-weight: 700;
+	margin-bottom: 20px;
+	line-height: 30px;
+}
+
+.posts-content h3 {
+	font-weight: 700;
+	font-size: 19px;
+}
+
+.posts-content blockquote {
+	margin-top: 30px;
+}
+
+.posts-content blockquote p:first-child {
+	margin-top: 0;
+}
+
+.posts-content ul,
+.posts-content ol {
+	margin-left: 25px;
+	margin-top: 25px;
+	list-style: disc;
+}
+
+.posts-content ul p {
+	margin-top: 10px;
+}
+
+.posts-content ul li {
+	/* margin-bottom: 22px; */
+	padding-left: 10px;
+	position: relative;
+	margin-bottom: 10px;
+	line-height: 1.5;
+}
+
+.posts-content ol li {
+	position: relative;
+	margin-bottom: 10px;
+	padding-left: 5px;
+	line-height: 24px;
+}
+
+.posts-content img {
+	max-width: 100%;
+	display: block;
+	margin: 10px auto;
+}
+
+.posts-content img.inline {
+	display: inline-block;
+}
+
+.posts-content .btn-hyper-gp {
+	margin: 0 auto;
+	width: 166px;
+	display: block;
+}
+
+.posts-content .btn-hyper-gp img {
+	margin: 0;
+}
+
+.posts-content .btn-blue {
+	padding: 11px 0;
+	height: 45px;
+	width: 166px;
+	display: block;
+	margin: 0 auto;
+}
