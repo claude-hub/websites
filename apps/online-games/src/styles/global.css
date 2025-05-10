@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	/* 导航 sticky 后，锚点位置会偏移 */
+	scroll-padding-top: 68px;
+}
+
 @layer base {
 	body {
 		@apply bg-game-dark text-game-light;

@@ -24,14 +24,26 @@
 		"height": "600"
 	},
 	{
-		"id": "64912",
-		"title": "Mahjong Connect Fish World",
-		"description": "Mahjong Connect Fish World is an innovative matching puzzle game that combines an ocean world theme with classic mahjong tile gameplay. In a dreamy underwater world, players connect matching mahjong tiles to rescue adorable sea creatures, experiencing a relaxing and entertaining puzzle adventure.",
-		"instructions": "Mouse click or tap to play",
-		"url": "https://html5.gamemonetize.com/cnhieqxamyo8vs366v5jitx9l70gwpsu/",
-		"category": "Puzzle",
-		"tags": "Board",
-		"thumb": "https://img.gamemonetize.com/cnhieqxamyo8vs366v5jitx9l70gwpsu/512x384.jpg",
+		"id": "65186",
+		"title": "Italian Brainrot Tung Sahur Snake.io",
+		"description": "Italian Brainrot Tung Sahur Snake.io is a hilarious and chaotic twist on the classic slither.io gameplay, infused with the energy of viral Italian Brainrot memes! Dive into an arena where your snake isn&rsquo;t just a plain old serpent &mdash; it&rsquo;s a wriggling parade of internet insanity, with famous meme characters like Tung Tung Sahur, Brr Brr Patapim, Ballerina Cappucina, and Ralalero trALALA leading the charge as the snake&rsquo;s animated, expressive head! In this wildly entertaining multiplayer experience, you start small &mdash; just a tiny meme slithering around &mdash; but your goal is to grow bigger, longer, and more ridiculous by eating glowing orbs scattered",
+		"instructions": "mouse only",
+		"url": "https://html5.gamemonetize.com/nipineo4jg3ceojn8zudt1a9s058ypac/",
+		"category": "Arcade",
+		"tags": "Brain, Slither, Snake",
+		"thumb": "https://img.gamemonetize.com/nipineo4jg3ceojn8zudt1a9s058ypac/512x384.jpg",
+		"width": "960",
+		"height": "600"
+	},
+	{
+		"id": "64711",
+		"title": "Easter Deer",
+		"description": "Easter has arrived, and you must help the reindeer! The reindeer accidentally got lost in the sky above the city. In this challenging game, help the reindeer escape the endless sky. If it falls down, you lose &mdash; so don&rsquo;t let it fall! Watch out for obstacles and collect all the Easter eggs. It&rsquo;s Easter today, don&rsquo;t miss the excitement. You must reach the finish line!",
+		"instructions": " Use the WASD keys to move Collect all the Easter eggs The golden Easter egg is very valuable Reach the finish line safely ",
+		"url": "https://html5.gamemonetize.com/li9to5us4sbvab2kf3upx3p6hekiyegk/",
+		"category": "Arcade",
+		"tags": "2D, Animal, Arcade, Baby, Cartoon, Easter, Platform",
+		"thumb": "https://img.gamemonetize.com/li9to5us4sbvab2kf3upx3p6hekiyegk/512x384.jpg",
 		"width": "800",
 		"height": "600"
 	},
@@ -336,18 +348,6 @@
 		"height": "720"
 	},
 	{
-		"id": "64711",
-		"title": "Easter Deer",
-		"description": "Easter has arrived, and you must help the reindeer! The reindeer accidentally got lost in the sky above the city. In this challenging game, help the reindeer escape the endless sky. If it falls down, you lose &mdash; so don&rsquo;t let it fall! Watch out for obstacles and collect all the Easter eggs. It&rsquo;s Easter today, don&rsquo;t miss the excitement. You must reach the finish line!",
-		"instructions": " Use the WASD keys to move Collect all the Easter eggs The golden Easter egg is very valuable Reach the finish line safely ",
-		"url": "https://html5.gamemonetize.com/li9to5us4sbvab2kf3upx3p6hekiyegk/",
-		"category": "Arcade",
-		"tags": "2D, Animal, Arcade, Baby, Cartoon, Easter, Platform",
-		"thumb": "https://img.gamemonetize.com/li9to5us4sbvab2kf3upx3p6hekiyegk/512x384.jpg",
-		"width": "800",
-		"height": "600"
-	},
-	{
 		"id": "64757",
 		"title": "Buckshot Roulette",
 		"description": "Do you dare to bet your life on an exciting roulette wheel showdown? Buckshot Roulette is a gun simulator that combines strategy, shooting and survival. Instead of a pistol, a powerful shotgun was used. Every pull of the trigger is a choice of fate. The winner lives, the loser dies. You will begin a Turn-Based shooting roulette game. Each round will have a fixed number of bullets and blanks.",
@@ -466,18 +466,6 @@
 		"thumb": "https://img.gamemonetize.com/cwpyhrprg9cj9m71rhne7mnnqm4h75hj/512x384.jpg",
 		"width": "750",
 		"height": "1334"
-	},
-	{
-		"id": "65186",
-		"title": "Italian Brainrot Tung Sahur Snake.io",
-		"description": "Italian Brainrot Tung Sahur Snake.io is a hilarious and chaotic twist on the classic slither.io gameplay, infused with the energy of viral Italian Brainrot memes! Dive into an arena where your snake isn&rsquo;t just a plain old serpent &mdash; it&rsquo;s a wriggling parade of internet insanity, with famous meme characters like Tung Tung Sahur, Brr Brr Patapim, Ballerina Cappucina, and Ralalero trALALA leading the charge as the snake&rsquo;s animated, expressive head! In this wildly entertaining multiplayer experience, you start small &mdash; just a tiny meme slithering around &mdash; but your goal is to grow bigger, longer, and more ridiculous by eating glowing orbs scattered",
-		"instructions": "mouse only",
-		"url": "https://html5.gamemonetize.com/nipineo4jg3ceojn8zudt1a9s058ypac/",
-		"category": "Arcade",
-		"tags": "Brain, Slither, Snake",
-		"thumb": "https://img.gamemonetize.com/nipineo4jg3ceojn8zudt1a9s058ypac/512x384.jpg",
-		"width": "960",
-		"height": "600"
 	},
 	{
 		"id": "64999",
@@ -3624,6 +3612,18 @@
 		"height": "1280"
 	},
 	{
+		"id": "64912",
+		"title": "Mahjong Connect Fish World",
+		"description": "Mahjong Connect Fish World is an innovative matching puzzle game that combines an ocean world theme with classic mahjong tile gameplay. In a dreamy underwater world, players connect matching mahjong tiles to rescue adorable sea creatures, experiencing a relaxing and entertaining puzzle adventure.",
+		"instructions": "Mouse click or tap to play",
+		"url": "https://html5.gamemonetize.com/cnhieqxamyo8vs366v5jitx9l70gwpsu/",
+		"category": "Puzzle",
+		"tags": "Board",
+		"thumb": "https://img.gamemonetize.com/cnhieqxamyo8vs366v5jitx9l70gwpsu/512x384.jpg",
+		"width": "800",
+		"height": "600"
+	},
+	{
 		"id": "62772",
 		"title": "harbor tycoon",
 		"description": "This game is a casual simulation mobile game. With its innovative integration of traditional Monopoly with tower defense gameplay, players can not only experience the excitement of Monopoly but also unlock and combine skills to test their combat capabilities in tower defense levels.",
@@ -3656,6 +3656,18 @@
 		"category": "Stickman",
 		"tags": "Classic, Fight, Fighting, Gun, Kart, Kid, Kids, Kill, Killing, Ninja, Ninjago, Punch, Skill, Skills, Street Fighting, Zombie",
 		"thumb": "https://img.gamemonetize.com/tk6dz0c1ihttthdqqhm1g5r56n60bbf5/512x384.jpg",
+		"width": "800",
+		"height": "600"
+	},
+	{
+		"id": "65128",
+		"title": "Candy Cutter Saga",
+		"description": "Candy Cutter Saga is a sweet and exciting physics-based puzzle game where precision is key! Cut the rope strategically to guide the delicious candy through tricky obstacles, collect all the stars, and land it perfectly into the mouth of the hungry player object. With challenging levels, realistic physics, and fun mechanics, Candy Cutter Saga will test your timing and problem-solving skills. Can you master every cut and feed the sweetest treats? Play now and enjoy this addictive candy-filled adventure!",
+		"instructions": "Plan and use your brain to cut the rope ",
+		"url": "https://html5.gamemonetize.com/wvkxvnqi8xg8dvya4g99jhs4xvabit49/",
+		"category": "Puzzle",
+		"tags": "Best Games, Brain, Puzzle, Strategy",
+		"thumb": "https://img.gamemonetize.com/wvkxvnqi8xg8dvya4g99jhs4xvabit49/512x384.jpg",
 		"width": "800",
 		"height": "600"
 	}
