@@ -14,6 +14,7 @@ const { game } = Astro.props;
 
 const relatedGames = gamesData
 	.filter((g) => g.category === game.category && g.id !== game.id)
+	.sort(() => 0.5 - Math.random())
 	.slice(0, 4);
 
 const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
@@ -27,109 +28,99 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 			</div>
 		</div>
 
-		<div class="container mx-auto pt-4 md:pt-6 pb-6 md:pb-8 relative z-10">
-			<div class="flex flex-col md:flex-row gap-6 md:gap-8">
-				<div class="">
-					<div class="mb-2 text-sm">
-						<a href="/" class="text-game-primary hover:text-game-accent">
-							<i class="fas fa-home mr-1"></i> Home
-						</a>
-						<span class="mx-2 text-gray-500">/</span>
-						<a
-							href={`/category/${game.category.toLowerCase()}`}
-							class="text-game-primary hover:text-game-accent"
+		<div class="container mx-auto py-4 relative z-10">
+			<div class="mb-8 text-sm">
+				<a href="/" class="text-game-primary hover:text-game-accent">
+					<i class="fas fa-home mr-1"></i> Home
+				</a>
+				<span class="mx-2 text-gray-500">/</span>
+				<a
+					href={`/category/${game.category.toLowerCase()}`}
+					class="text-game-primary hover:text-game-accent"
+				>
+					{game.category}
+				</a>
+				<span class="mx-2 text-gray-500">/</span>
+				<span class="text-gray-400">{game.title}</span>
+			</div>
+
+			<h1 class="text-2xl md:text-3xl font-bold mb-6">{game.title}</h1>
+
+			<div class="flex flex-col md:flex-row gap-4 mb-4">
+				<div>
+					<div class="relative">
+						<img
+							src={game.thumb}
+							alt={game.title}
+							class="w-full md:w-[260px] rounded-lg shadow-game"
+						/>
+						<span
+							class="absolute top-4 left-4 bg-game-primary text-white px-2 py-1 rounded-full text-xs"
 						>
 							{game.category}
-						</a>
-						<span class="mx-2 text-gray-500">/</span>
-						<span class="text-gray-400">{game.title}</span>
+						</span>
 					</div>
 
-					<h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">{game.title}</h1>
-
-					<div class="flex flex-col md:flex-row gap-4 mb-4">
-						<div>
-							<div class="relative">
-								<img
-									src={game.thumb}
-									alt={game.title}
-									class="w-full md:w-[260px] rounded-lg shadow-game"
-								/>
-								<span
-									class="absolute top-4 left-4 bg-game-primary text-white px-2 py-1 rounded-full text-xs"
-								>
-									{game.category}
-								</span>
+					<div class="glass-effect mt-4 md:mt-6 p-4 md:p-6 rounded-lg">
+						<h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 text-gradient">Game Info</h3>
+						<div class="space-y-2 md:space-y-3 text-sm md:text-base">
+							<div class="flex justify-between">
+								<span class="text-gray-400">Category:</span>
+								<span>{game.category}</span>
 							</div>
-
-							<div class="glass-effect mt-4 md:mt-6 p-4 md:p-6 rounded-lg">
-								<h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 text-gradient">
-									Game Info
-								</h3>
-								<div class="space-y-2 md:space-y-3 text-sm md:text-base">
-									<div class="flex justify-between">
-										<span class="text-gray-400">Category:</span>
-										<span>{game.category}</span>
-									</div>
-									<div class="flex justify-between">
-										<span class="text-gray-400">Rating:</span>
-										<div class="flex text-yellow-400">
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star-half-alt"></i>
-										</div>
-									</div>
+							<div class="flex justify-between">
+								<span class="text-gray-400">Rating:</span>
+								<div class="flex text-yellow-400">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star-half-alt"></i>
 								</div>
 							</div>
 						</div>
-
-						<div class="flex-1 glass-effect p-4 md:p-6 rounded-lg">
-							<h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gradient">
-								Description
-							</h2>
-							<p
-								class="text-gray-300 leading-relaxed text-sm md:text-base"
-								set:html={game.description}
-							/>
-						</div>
-					</div>
-
-					<div class="glass-effect p-4 md:p-6 rounded-lg">
-						<h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gradient">
-							How to Play?
-						</h2>
-						<div class="space-y-3 md:space-y-4 text-sm md:text-base">
-							{game.instructions}
-						</div>
-
-						<div id="gamemonetize-video" class="my-4 max-w-[600px] mx-auto"></div>
-						<script type="text/javascript" define:vars={{ gameid }}>
-							if (!gameid) return;
-							window.VIDEO_OPTIONS = {
-								gameid,
-								width: '100%',
-								height: '480px',
-								color: '#3f007e',
-								getAds: 'true'
-							};
-							(function (a, b, c) {
-								var d = a.getElementsByTagName(b)[0];
-								a.getElementById(c) ||
-									((a = a.createElement(b)),
-									(a.id = c),
-									(a.src = 'https://api.gamemonetize.com/video.js'),
-									d.parentNode.insertBefore(a, d));
-							})(document, 'script', 'gamemonetize-video-api');
-						</script>
 					</div>
 				</div>
+
+				<div class="flex-1 glass-effect p-4 md:p-6 rounded-lg">
+					<h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gradient">Description</h2>
+					<p
+						class="text-gray-300 leading-relaxed text-sm md:text-base"
+						set:html={game.description}
+					/>
+				</div>
+			</div>
+
+			<div class="glass-effect p-4 md:p-6 rounded-lg">
+				<h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gradient">How to Play?</h2>
+				<div class="space-y-3 md:space-y-4 text-sm md:text-base">
+					{game.instructions}
+				</div>
+
+				<div id="gamemonetize-video" class="mt-4 max-w-[600px] mx-auto"></div>
+				<script type="text/javascript" define:vars={{ gameid }}>
+					if (!gameid) return;
+					window.VIDEO_OPTIONS = {
+						gameid,
+						width: '100%',
+						height: '480px',
+						color: '#3f007e',
+						getAds: 'true'
+					};
+					(function (a, b, c) {
+						var d = a.getElementsByTagName(b)[0];
+						a.getElementById(c) ||
+							((a = a.createElement(b)),
+							(a.id = c),
+							(a.src = 'https://api.gamemonetize.com/video.js'),
+							d.parentNode.insertBefore(a, d));
+					})(document, 'script', 'gamemonetize-video-api');
+				</script>
 			</div>
 		</div>
 	</div>
 
-	<section class="pb-8 md:pb-12 bg-game-dark/50">
+	<section class="pb-8 bg-game-dark/50">
 		<div class="container mx-auto">
 			<div class="glass-effect p-3 md:p-4 rounded-lg">
 				<div class="game-container relative">
@@ -196,7 +187,7 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 			allowfullscreen></iframe>
 	</div>
 
-	<section class="py-8 md:py-12">
+	<section>
 		<div class="container mx-auto">
 			<h2 class="section-title mb-6 md:mb-8">
 				Related <span class="text-gradient">Games</span>

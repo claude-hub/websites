@@ -1,9 +1,7 @@
 ---
 import GameCard from '../components/GameCard.astro';
 import Layout from '../layouts/Layout.astro';
-import { games } from '../service';
-
-const popularGames = games.slice(0, 48);
+import { popularGames } from '../service';
 ---
 
 <Layout title="Popular Games - Online Games">
@@ -18,7 +16,9 @@ const popularGames = games.slice(0, 48);
 
 		<h1 class="text-3xl font-bold mb-6">Popular Games</h1>
 
-		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+		<div
+			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6"
+		>
 			{
 				popularGames.map((game) => (
 					<GameCard
