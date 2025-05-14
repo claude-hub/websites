@@ -1,12 +1,11 @@
 ---
 import GameCard from '../../components/GameCard.astro';
 import Layout from '../../layouts/Layout.astro';
-import { categories } from '../../service';
-import gamesData from '../../service/games.json';
+import { categories, originGames } from '../../service';
 
 export function getStaticPaths() {
 	return categories.map((category) => {
-		const filteredGames = gamesData.filter(
+		const filteredGames = originGames.filter(
 			(game) => game.category.toLowerCase() === category.toLowerCase()
 		);
 		return {

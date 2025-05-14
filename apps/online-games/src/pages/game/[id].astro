@@ -1,10 +1,10 @@
 ---
 import GameCard from '../../components/GameCard.astro';
 import Layout from '../../layouts/Layout.astro';
-import gamesData from '../../service/games.json';
+import { originGames } from '../../service';
 
 export function getStaticPaths() {
-	return gamesData.map((game) => ({
+	return originGames.map((game) => ({
 		params: { id: game.id },
 		props: { game }
 	}));
@@ -12,7 +12,7 @@ export function getStaticPaths() {
 
 const { game } = Astro.props;
 
-const relatedGames = gamesData
+const relatedGames = originGames
 	.filter((g) => g.category === game.category && g.id !== game.id)
 	.sort(() => 0.5 - Math.random())
 	.slice(0, 4);
@@ -218,8 +218,6 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 </script>
 
 <script define:vars={{ gameUrl: game.url }}>
-	console.log(gameUrl);
-
 	// 获取DOM元素
 	const startGameBtn = document.getElementById('start-game');
 	const gamePlaceholder = document.getElementById('game-placeholder');

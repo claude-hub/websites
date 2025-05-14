@@ -1,0 +1,55 @@
+<button
+	id="back-to-top"
+	aria-label="Back to top"
+	class="fixed bottom-8 right-2 w-12 h-12 shadow-lg bg-game-primary rounded-full hidden items-center justify-center z-[2000] transition-opacity duration-300 hover:opacity-90 focus:outline-none"
+>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		aria-hidden="true"
+	>
+		<path d="m18 15-6-6-6 6"></path>
+	</svg>
+</button>
+
+<script>
+	const observerTarget = document.createElement('div');
+	observerTarget.style.height = '1px';
+	document.body.prepend(observerTarget);
+
+	const button = document.querySelector('#back-to-top') as HTMLButtonElement;
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			if (button) {
+				button.style.display = entries[0].isIntersecting ? 'none' : 'flex';
+			}
+		},
+		{ rootMargin: '340px' }
+	);
+
+	observer.observe(observerTarget);
+
+	const scrollToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		});
+	};
+
+	if (button) {
+		button.addEventListener('click', scrollToTop);
+	}
+
+	document.addEventListener('astro:unmount', () => {
+		observer.disconnect();
+		button?.removeEventListener('click', scrollToTop);
+	});
+</script>
