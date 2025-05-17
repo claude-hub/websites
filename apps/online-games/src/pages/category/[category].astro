@@ -1,24 +1,42 @@
 ---
 import GameCard from '../../components/GameCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import Layout from '../../layouts/Layout.astro';
 import { categories, originGames } from '../../service';
+import { GAMES_PER_PAGE } from '../../utils';
 
 export function getStaticPaths() {
+	const gamesPerPage = GAMES_PER_PAGE;
+
 	return categories.map((category) => {
 		const filteredGames = originGames.filter(
 			(game) => game.category.toLowerCase() === category.toLowerCase()
 		);
+		const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+
 		return {
 			params: { category: category.toLowerCase() },
-			props: { category, games: filteredGames }
+			props: {
+				category,
+				games: filteredGames,
+				currentPage: 1,
+				totalPages,
+				gamesPerPage
+			}
 		};
 	});
 }
 
-const { category, games } = Astro.props;
+const {
+	category,
+	games,
+	currentPage = 1,
+	totalPages = 1,
+	gamesPerPage = GAMES_PER_PAGE
+} = Astro.props;
 ---
 
-<Layout title={`${category} Games - Online Games`}>
+<Layout title={`${category} Games - Page ${currentPage} - Online Games`}>
 	<div class="container mx-auto">
 		<div class="mb-8 mt-4 text-sm">
 			<a href="/" class="text-game-primary hover:text-game-accent">
@@ -26,6 +44,14 @@ const { category, games } = Astro.props;
 			</a>
 			<span class="mx-2 text-gray-500">/</span>
 			<span class="text-gray-400">{category} Games</span>
+			{
+				currentPage > 1 && (
+					<>
+						<span class="mx-2 text-gray-500">/</span>
+						<span class="text-gray-400">Page {currentPage}</span>
+					</>
+				)
+			}
 		</div>
 
 		<h1 class="text-3xl font-bold mb-6">{category} Games</h1>
@@ -34,16 +60,59 @@ const { category, games } = Astro.props;
 			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6"
 		>
 			{
-				games.map((game) => (
-					<GameCard
-						id={game.id}
-						title={game.title}
-						description={game.description}
-						thumb={game.thumb}
-						category={game.category}
-					/>
-				))
+				// 计算当前页面应该显示的游戏
+				games
+					.slice((currentPage - 1) * gamesPerPage, currentPage * gamesPerPage)
+					.map((game) => (
+						<GameCard
+							id={game.id}
+							title={game.title}
+							description={game.description}
+							thumb={game.thumb}
+							category={game.category}
+						/>
+					))
 			}
 		</div>
+
+		{/* 分页组件 */}
+		{
+			totalPages > 1 && (
+				<div class="mt-10">
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						basePath={`category/${category.toLowerCase()}`}
+						generatePaginationArray={(current, total) => {
+							// 使用与默认相同的算法
+							const delta = 1;
+							const range = [];
+							const rangeWithDots = [];
+							let l;
+
+							for (let i = 1; i <= total; i++) {
+								if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+									range.push(i);
+								}
+							}
+
+							for (let i of range) {
+								if (l) {
+									if (i - l === 2) {
+										rangeWithDots.push(l + 1);
+									} else if (i - l !== 1) {
+										rangeWithDots.push('...');
+									}
+								}
+								rangeWithDots.push(i);
+								l = i;
+							}
+
+							return rangeWithDots;
+						}}
+					/>
+				</div>
+			)
+		}
 	</div>
 </Layout>

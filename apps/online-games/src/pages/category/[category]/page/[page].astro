@@ -1,0 +1,102 @@
+---
+import GameCard from '../../../../components/GameCard.astro';
+import Pagination from '../../../../components/Pagination.astro';
+import Layout from '../../../../layouts/Layout.astro';
+import type { Game } from '../../../../service';
+import { categories, originGames } from '../../../../service';
+import { GAMES_PER_PAGE } from '../../../../utils';
+
+interface Props {
+	category: string;
+	games: Game[];
+	currentPage: number;
+	totalPages: number;
+	gamesPerPage: number;
+}
+
+export function getStaticPaths() {
+	const gamesPerPage = GAMES_PER_PAGE;
+	const paths: Array<{
+		params: { category: string; page: string };
+		props: Props;
+	}> = [];
+
+	// 为每个分类生成分页路径
+	categories.forEach((category) => {
+		const filteredGames = originGames.filter(
+			(game) => game.category.toLowerCase() === category.toLowerCase()
+		);
+		const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+
+		// 添加分类分页路径（从第2页开始，第1页由[category].astro处理）
+		for (let i = 2; i <= totalPages; i++) {
+			paths.push({
+				params: {
+					category: category.toLowerCase(),
+					page: i.toString()
+				},
+				props: {
+					category,
+					games: filteredGames,
+					currentPage: i,
+					totalPages,
+					gamesPerPage
+				}
+			});
+		}
+	});
+
+	return paths;
+}
+
+const { category, games, currentPage, totalPages, gamesPerPage } = Astro.props;
+---
+
+<Layout title={`${category} Games - Page ${currentPage} - Online Games`}>
+	<div class="container mx-auto">
+		<div class="mb-8 mt-4 text-sm">
+			<a href="/" class="text-game-primary hover:text-game-accent">
+				<i class="fas fa-home mr-1"></i> Home
+			</a>
+			<span class="mx-2 text-gray-500">/</span>
+			<a
+				href={`/category/${category.toLowerCase()}`}
+				class="text-game-primary hover:text-game-accent"
+			>
+				{category} Games
+			</a>
+			<span class="mx-2 text-gray-500">/</span>
+			<span class="text-gray-400">Page {currentPage}</span>
+		</div>
+
+		<h1 class="text-3xl font-bold mb-6">{category} Games</h1>
+
+		<div
+			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6"
+		>
+			{
+				// 计算当前页面应该显示的游戏
+				games
+					.slice((currentPage - 1) * gamesPerPage, currentPage * gamesPerPage)
+					.map((game) => (
+						<GameCard
+							id={game.id}
+							title={game.title}
+							description={game.description}
+							thumb={game.thumb}
+							category={game.category}
+						/>
+					))
+			}
+		</div>
+
+		{/* 分页组件 */}
+		<div class="mt-10">
+			<Pagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				basePath={`category/${category.toLowerCase()}`}
+			/>
+		</div>
+	</div>
+</Layout>

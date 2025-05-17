@@ -3,9 +3,10 @@ export interface Props {
 	currentPage: number;
 	totalPages: number;
 	generatePaginationArray?: (current: number, total: number) => (number | string)[];
+	basePath?: string; // 添加basePath参数用于自定义分页路径
 }
 
-const { currentPage, totalPages, generatePaginationArray } = Astro.props;
+const { currentPage, totalPages, generatePaginationArray, basePath = '' } = Astro.props;
 
 const defaultGeneratePaginationArray = (current: number, total: number) => {
 	const delta = 1;
@@ -44,7 +45,15 @@ const paginationArray = generatePaginationArray
 		{
 			currentPage > 1 && (
 				<a
-					href={currentPage === 2 ? '/' : `/page/${currentPage - 1}`}
+					href={
+						currentPage === 2
+							? basePath
+								? `/${basePath}`
+								: '/'
+							: basePath
+								? `/${basePath}/page/${currentPage - 1}`
+								: `/page/${currentPage - 1}`
+					}
 					class="px-3 md:px-4 py-2 bg-game-card hover:bg-game-primary text-white rounded transition"
 				>
 					<i class="fas fa-chevron-left mr-1" /> <span class="hidden md:inline">Previous</span>
@@ -58,7 +67,15 @@ const paginationArray = generatePaginationArray
 					<span class="px-3 md:px-4 py-2 text-gray-400">...</span>
 				) : (
 					<a
-						href={page === 1 ? '/' : `/page/${page}`}
+						href={
+							page === 1
+								? basePath
+									? `/${basePath}`
+									: '/'
+								: basePath
+									? `/${basePath}/page/${page}`
+									: `/page/${page}`
+						}
 						class={`px-3 md:px-4 py-2 rounded transition ${
 							currentPage === page
 								? 'bg-game-primary text-white'
@@ -74,7 +91,7 @@ const paginationArray = generatePaginationArray
 		{
 			currentPage < totalPages && (
 				<a
-					href={`/page/${currentPage + 1}`}
+					href={basePath ? `/${basePath}/page/${currentPage + 1}` : `/page/${currentPage + 1}`}
 					class="px-3 md:px-4 py-2 bg-game-card hover:bg-game-primary text-white rounded transition"
 				>
 					<span class="hidden md:inline">Next</span>
