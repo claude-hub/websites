@@ -143,7 +143,7 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 	<div id="mobileGameContainer" class="fixed inset-0 bg-black z-50 hidden">
 		<button
 			id="mobileBackBtn"
-			class="absolute top-2 left-2 z-10 bg-game-primary text-white p-2 rounded-full shadow-lg"
+			class="absolute top-6 left-2 z-10 bg-game-primary text-white p-2 rounded-full shadow-lg"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,8 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 			</svg>
 		</button>
 
-		<iframe id="mobileGameFrame" src="" title={game.title} class="w-full h-full border-0"></iframe>
+		<iframe id="mobileGameFrame" src="" title={game.title} class="w-full h-full border-0 z-50"
+		></iframe>
 	</div>
 
 	<section>

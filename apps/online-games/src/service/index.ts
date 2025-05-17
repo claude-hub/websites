@@ -1,4 +1,8 @@
-import gamesData from './games.json';
+import data from './games.json';
+import data1 from './games1.json';
+import data2 from './games2.json';
+
+const gamesData = [...data, ...data1, ...data2];
 
 export const originGames = [...new Map(gamesData.map((game) => [game.id, game])).values()];
 
