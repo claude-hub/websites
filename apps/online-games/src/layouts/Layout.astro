@@ -1,6 +1,6 @@
 ---
-import BackToTop from '../components/BackToTop.astro';
-import '../styles/global.css';
+import BackToTop from '@/components/BackToTop.astro';
+import '@/styles/global.css';
 
 export interface Props {
 	title: string;
@@ -16,16 +16,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="algolia-site-verification" content="F7AF4E030DDD0DF8" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalURL} />
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 		/>
-		<script is:inline src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<script is:inline>
 			(function (w, d, s, l, i) {
 				w[l] = w[l] || [];

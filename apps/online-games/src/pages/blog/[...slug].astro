@@ -1,20 +1,28 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
 	const posts = await getCollection('blog');
-	return posts.map((post) => ({
+	return posts.map((post: CollectionEntry<'blog'>) => ({
 		params: { slug: post.slug },
 		props: post
 	}));
-}
+}) satisfies GetStaticPaths;
+
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content, headings } = await render(post);
+const { Content, headings } = await post.render();
 
-const h2Headings = headings.filter((heading) => heading.depth === 2);
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+const h2Headings = headings.filter((heading: Heading) => heading.depth === 2);
 ---
 
 <Layout title={post.data.title}>
@@ -67,7 +75,7 @@ const h2Headings = headings.filter((heading) => heading.depth === 2);
 						<nav class="sticky top-[136px]">
 							<h3 class="text-xl font-semibold mb-4">Table of Contents</h3>
 							<ul class="space-y-2">
-								{h2Headings.map((heading) => (
+								{h2Headings.map((heading: Heading) => (
 									<li>
 										<a
 											href={`#${heading.slug}`}

@@ -10,13 +10,4 @@ const blog = defineCollection({
 	})
 });
 
-const games = defineCollection({
-	type: 'data',
-	schema: z.object({
-		title: z.string(),
-		description: z.string(),
-		img: z.string().optional()
-	})
-});
-
-export const collections = { blog, games };
+export const collections = { blog };

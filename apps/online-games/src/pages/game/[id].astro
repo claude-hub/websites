@@ -166,7 +166,7 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 	<div id="mobileGameContainer" class="fixed inset-0 bg-black z-50 hidden">
 		<button
 			id="mobileBackBtn"
-			class="absolute top-6 left-2 z-10 bg-game-primary text-white p-2 rounded-full shadow-lg"
+			class="absolute top-8 left-2 z-10 bg-game-primary text-white p-2 rounded-full shadow-lg"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +230,7 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 		a.getElementById(c) ||
 			((a = a.createElement(b)),
 			(a.id = c),
-			(a.src = 'https://api.gamemonetize.com/video.js'),
+			(a.src = '/gamemonetize_video.js'),
 			d.parentNode.insertBefore(a, d));
 	})(document, 'script', 'gamemonetize-video-api');
 </script>
