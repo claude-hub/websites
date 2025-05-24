@@ -1,1 +1,1 @@
-export const GAMES_PER_PAGE = 80;
+export const GAMES_PER_PAGE = 10;

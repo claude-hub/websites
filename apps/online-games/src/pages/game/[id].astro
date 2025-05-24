@@ -15,7 +15,9 @@ const { game } = Astro.props;
 const relatedGames = originGames
 	.filter((g) => g.category === game.category && g.id !== game.id)
 	.sort(() => 0.5 - Math.random())
-	.slice(0, 14);
+	.slice(0, 2);
+
+const otherGames = originGames.sort(() => 0.5 - Math.random()).slice(0, 10);
 
 const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 ---
@@ -97,25 +99,23 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 					{game.instructions}
 				</div>
 
-				<div class="flex items-center gap-6">
+				<div class="flex flex-col xl:flex-row items-center gap-6">
 					<div id="gamemonetize-video" class="mt-4 max-w-[800px] mx-auto"></div>
 
-					<div class="hidden xl:block">
+					<div class="">
 						<h2 class="section-title mb-6 md:mb-8">
 							Related <span class="text-gradient">Games</span>
 						</h2>
-						<div class="grid grid-cols-1 2xl:grid-cols-2 gap-6">
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 							{
-								relatedGames.slice(0, 2).map((game) => (
-									<div class="game-card-wrapper">
-										<GameCard
-											id={game.id}
-											title={game.title}
-											description={game.description}
-											thumb={game.thumb}
-											category={game.category}
-										/>
-									</div>
+								relatedGames.map((game) => (
+									<GameCard
+										id={game.id}
+										title={game.title}
+										description={game.description}
+										thumb={game.thumb}
+										category={game.category}
+									/>
 								))
 							}
 						</div>
@@ -190,13 +190,13 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 	<section>
 		<div class="container mx-auto">
 			<h2 class="section-title mb-6 md:mb-8">
-				Hot <span class="text-gradient">Games</span>
+				Other <span class="text-gradient">Games</span>
 			</h2>
 
 			{
-				relatedGames.length > 0 ? (
-					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-						{relatedGames.slice(2).map((game) => (
+				otherGames.length > 0 ? (
+					<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
+						{otherGames.map((game) => (
 							<GameCard
 								id={game.id}
 								title={game.title}
@@ -306,16 +306,6 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 		}
 	}
 
-	/* 2xl以下屏幕只显示1个游戏卡片 */
-	@media (max-width: 1535px) {
-		.game-card-wrapper:nth-child(2) {
-			display: none;
-		}
-	}
-	/* 2xl及以上屏幕显示2个游戏卡片 */
-	@media (min-width: 1536px) {
-		.game-card-wrapper {
-			display: block;
-		}
+	@media screen and (max-width: 768px) {
 	}
 </style>
