@@ -60,7 +60,7 @@ const { category, games, currentPage, totalPages, gamesPerPage } = Astro.props;
 			</a>
 			<span class="mx-2 text-gray-500">/</span>
 			<a
-				href={`/category/${category.toLowerCase()}`}
+				href={`/category/${category.toLowerCase()}/`}
 				class="text-game-primary hover:text-game-accent"
 			>
 				{category} Games

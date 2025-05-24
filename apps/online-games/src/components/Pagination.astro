@@ -48,11 +48,11 @@ const paginationArray = generatePaginationArray
 					href={
 						currentPage === 2
 							? basePath
-								? `/${basePath}`
+								? `/${basePath}/`
 								: '/'
 							: basePath
-								? `/${basePath}/page/${currentPage - 1}`
-								: `/page/${currentPage - 1}`
+								? `/${basePath}/page/${currentPage - 1}/`
+								: `/page/${currentPage - 1}/`
 					}
 					class="px-3 md:px-4 py-2 bg-game-card hover:bg-game-primary text-white rounded transition"
 				>
@@ -70,11 +70,11 @@ const paginationArray = generatePaginationArray
 						href={
 							page === 1
 								? basePath
-									? `/${basePath}`
+									? `/${basePath}/`
 									: '/'
 								: basePath
-									? `/${basePath}/page/${page}`
-									: `/page/${page}`
+									? `/${basePath}/page/${page}/`
+									: `/page/${page}/`
 						}
 						class={`px-3 md:px-4 py-2 rounded transition ${
 							currentPage === page
@@ -91,7 +91,7 @@ const paginationArray = generatePaginationArray
 		{
 			currentPage < totalPages && (
 				<a
-					href={basePath ? `/${basePath}/page/${currentPage + 1}` : `/page/${currentPage + 1}`}
+					href={basePath ? `/${basePath}/page/${currentPage + 1}/` : `/page/${currentPage + 1}/`}
 					class="px-3 md:px-4 py-2 bg-game-card hover:bg-game-primary text-white rounded transition"
 				>
 					<span class="hidden md:inline">Next</span>

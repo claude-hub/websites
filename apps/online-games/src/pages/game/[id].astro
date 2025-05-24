@@ -35,7 +35,7 @@ const gameid = new URL(game.url).pathname.split('/').filter(Boolean).pop();
 				</a>
 				<span class="mx-2 text-gray-500">/</span>
 				<a
-					href={`/category/${game.category.toLowerCase()}`}
+					href={`/category/${game.category.toLowerCase()}/`}
 					class="text-game-primary hover:text-game-accent"
 				>
 					{game.category}

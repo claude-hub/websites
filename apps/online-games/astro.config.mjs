@@ -7,7 +7,14 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
 	site: 'https://claude-hub.cn',
-	integrations: [tailwind(), sitemap(), mdx()],
+	integrations: [
+		tailwind(),
+		sitemap({
+			// 设置 sitemap 分页，每页最多 5000 条
+			entryLimit: 5000
+		}),
+		mdx()
+	],
 	output: 'static',
 	devToolbar: {
 		enabled: false
@@ -15,7 +22,7 @@ export default defineConfig({
 	markdown: {
 		remarkPlugins: [remarkModifiedTime]
 	},
-	trailingSlash: 'never',
+	trailingSlash: 'always',
 	build: {
 		assets: 'assets'
 	}

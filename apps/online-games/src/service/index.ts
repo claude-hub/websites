@@ -1,8 +1,4 @@
 import page1 from './page1.json';
-import page2 from './page2.json';
-import page3 from './page3.json';
-import page5 from './page5.json';
-import page6 from './page6.json';
 
 export interface Game {
 	id: string;
@@ -17,7 +13,7 @@ export interface Game {
 	height: string;
 }
 
-const gamesData = ([...page1, ...page2, ...page3, ...page5, ...page6] as Game[]).map((item) => {
+const gamesData = ([...page1] as Game[]).map((item) => {
 	if (!item.category) {
 		return {
 			...item,
