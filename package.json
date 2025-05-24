@@ -3,7 +3,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "lerna run dev --scope online-games",
-		"build": "lerna run build",
+		"build": "lerna run build --scope",
+		"build:all": "lerna run build",
 		"lint": "lerna run lint",
 		"format": "prettier --write .",
 		"clean": "npx lerna clean -y && rm -rf node_modules && rm -rf ./apps/*/.next && rm -rf ./apps/*/out"
